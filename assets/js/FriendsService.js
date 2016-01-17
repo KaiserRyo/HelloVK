@@ -42,3 +42,51 @@ function findById(friendsList, userId) {
 		return friend.id === userId;
 	})[0];
 }
+
+function getCurrentJob(friend) {
+    if (friend.career && friend.career.length > 0 && friend.career[0]) {
+        var currentJob = friend.career[friend.career.length - 1];
+        var result = "";
+        if (currentJob.position) {
+            result = currentJob.position;
+        }
+        if (currentJob.company) {
+            result += " (" + currentJob.company + ") ";
+        }
+        return result;
+    } else {
+        return "";
+    }
+}
+
+function getMobilePhone(friend) {
+	return getProp(friend, "mobile_phone");
+}
+
+function getSites(friend) {
+	return isPropExists(friend, "site") ? getLinks(friend.site) : "";
+}
+
+function getSkype(friend) {
+	return getProp(friend, "skype");
+}
+
+function getBdate(friend) {
+	return getProp(friend, "bdate");
+}
+
+function getEducation(friend) {
+    return isPropExists(friend, "university_name") ? friend.university_name + (friend.graduation !== 0 ? qsTr(" in ") + friend.graduation : "") : "";
+}
+
+function getCity(friend) {
+    return isPropExists(friend, "city") ? friend.city.title + (friend.country ? " (" + friend.country.title + ")" : "") : "";
+}
+
+function getProp(friend, propName) {
+	return isPropExists(friend, propName) ? friend[propName] : "";
+}
+
+function isPropExists(friend, propName) {
+    return friend.hasOwnProperty(propName) && friend[propName] !== "";
+}

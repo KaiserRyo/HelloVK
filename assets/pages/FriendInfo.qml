@@ -1,5 +1,5 @@
 import bb.cascades 1.4
-import "/pages/components";
+import "components";
 import "controls";
 import "/js/Common.js" as Common;
 import "/js/FriendsService.js" as FriendsService;
@@ -58,92 +58,23 @@ Page {
     function cleanup() {}
     
     function updateFriendInfo() {
-        mainInfo.removeAll();
-        
         if (friend) {
-            mainInfo.add(title.createObject());
-            if (!friend.hasOwnProperty('deactivated')) {
-                showCurrentJob();
-                showEducation();
-                showCity();
-                showPhones();
-                showWebContacts();
-                showBirthDate();
+            if (!friend.hasOwnProperty("deactivated")) {
+                job.visible = FriendsService.getCurrentJob(friend) !== "";
+                edu.visible = FriendsService.getEducation(friend) !== "";
+                city.visible = FriendsService.getCity(friend) !== "";
+                
+                phoneContainer.visible = FriendsService.isPropExists(friend, "mobile_phone");
+                
+                webContactsContainer.visible = friend.site || friend.skype;
+                site.visible = FriendsService.isPropExists(friend, "site");
+                skype.visible = FriendsService.isPropExists(friend, "skype");
+                
+                bdateContainer.visible = FriendsService.isPropExists(friend, "bdate");
             }
         }
     }
-    
-    function showCurrentJob() {
-        if (friend.career && friend.career.length > 0 && friend.career[0]) {
-            var jobLabel = subtitle.createObject();
-            var currentJob = friend.career[friend.career.length - 1];
-            if (currentJob.position) {
-                jobLabel.text = currentJob.position;
-            }
-            if (currentJob.company) {
-                jobLabel.text += " (" + currentJob.company + ") ";
-            }
-            mainInfo.add(jobLabel);
-        }
-    }
-    
-    function showEducation() {
-        if (friend.university_name) {
-            var universityLabel = subtitle.createObject();
-            universityLabel.text = friend.university_name + (friend.graduation !== 0 ? qsTr(" in ") + friend.graduation : "");
-            mainInfo.add(universityLabel);
-        }
-    }
-    
-    function showCity() {
-        if (friend.city) {
-            var cityLabel = subtitle.createObject();
-            cityLabel.text = friend.city.title + (friend.country ? " (" + friend.country.title + ")" : "");
-            mainInfo.add(cityLabel);
-        }
-    }
-    
-    function showPhones() {
-        phoneContainer.removeAll();       
-        if (friend.mobile_phone) {
             
-            var call = contactCallContainer.createObject();
-            call.text = friend.mobile_phone;
-            
-            var sms = contactSmsContainer.createObject();
-            sms.text = friend.mobile_phone;
-            
-            phoneContainer.add(call);
-            phoneContainer.add(sms);
-            phoneContainer.add(bigDivider.createObject());
-        }    
-    }
-    
-    function showWebContacts() {
-        webContactsContainer.removeAll();
-        if (friend.site) {
-            var site = contactSiteContainer.createObject();
-            site.text = FriendsService.getLinks(friend.site);
-            webContactsContainer.add(site);
-        }
-        if (friend.skype) {
-            var skype = contactSkypeContainer.createObject();
-            skype.text = friend.skype;
-            webContactsContainer.add(skype);
-        }
-        webContactsContainer.add(bigDivider.createObject());
-    }
-    
-    function showBirthDate() {
-        bdateContainer.removeAll();
-        if (friend.bdate) {
-            var bdate = contactBdateContainer.createObject();
-            bdate.text = friend.bdate;            
-            bdateContainer.add(bdate);
-            bdateContainer.add(bigDivider.createObject());
-        }
-    }
-    
     Container {
         Container {
             leftPadding: ui.du(1)
@@ -169,16 +100,41 @@ Page {
                     spaceQuota: 1
                 }
                 leftMargin: ui.du(2)
+                
+                Label {
+                    text: friend.first_name + " " + friend.last_name
+                    textStyle.base: SystemDefaults.TextStyles.TitleText
+                    textStyle.color: Color.Black
+                }
+                
+                Subtitle { id: job; subtitle: FriendsService.getCurrentJob(friend); }
+                Subtitle { id: edu; subtitle: FriendsService.getEducation(friend); }
+                Subtitle { id: city; subtitle: FriendsService.getCity(friend); }
             }
         }
         MainDivider {}
+        
         ScrollView {
             horizontalAlignment: HorizontalAlignment.Fill
             verticalAlignment: VerticalAlignment.Fill
             Container {
-                Container { id: phoneContainer }       
-                Container { id: webContactsContainer }
-                Container { id: bdateContainer }    
+                Container { 
+                    id: phoneContainer 
+                    ContactCallContainer { text: FriendsService.getMobilePhone(friend); }
+                    ContactSmsContainer { text: FriendsService.getMobilePhone(friend); }
+                    BigDivider {}
+                }       
+                Container { 
+                    id: webContactsContainer
+                    ContactSiteContainer { id: site; text: FriendsService.getSites(friend); }
+                    ContactSkypeContainer { id: skype; text: FriendsService.getSkype(friend); }
+                    BigDivider {}
+                }
+                Container { 
+                    id: bdateContainer
+                    ContactBdateContainer { text: FriendsService.getBdate(friend); }
+                    BigDivider {}
+                }    
             }
         }
     }
@@ -195,37 +151,6 @@ Page {
                 textStyle.base: SystemDefaults.TextStyles.TitleText
                 textStyle.color: Color.Black
             }
-        },
-        ComponentDefinition {
-            id: subtitle
-            Label {
-                textStyle.base: SystemDefaults.TextStyles.SmallText
-                textStyle.color: Color.Black
-            }
-        },
-        ComponentDefinition {
-            id: bigDivider
-            source: "asset:///pages/controls/BigDivider.qml"
-        },
-        ComponentDefinition {
-            id: contactCallContainer
-            source: "asset:///pages/components/ContactCallContainer.qml"
-        },
-        ComponentDefinition {
-            id: contactSmsContainer
-            source: "asset:///pages/components/ContactSmsContainer.qml"
-        },
-        ComponentDefinition {
-            id: contactSiteContainer
-            source: "asset:///pages/components/ContactSiteContainer.qml"
-        },
-        ComponentDefinition {
-            id: contactSkypeContainer
-            source: "asset:///pages/components/ContactSkypeContainer.qml"
-        },
-        ComponentDefinition {
-            id: contactBdateContainer
-            source: "asset:///pages/components/ContactBdateContainer.qml"
         }
     ]
     
