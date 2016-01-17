@@ -1,5 +1,5 @@
 1
-47
+48
 img/ca_browser.png
 img/ca_contacts.png
 img/ca_device.png
@@ -41,9 +41,10 @@ pages/components/ContactSmsContainer.qml
 pages/components/FriendListItem.qml
 pages/components/FriendsSearchTitleBar.qml
 pages/controls/BigDivider.qml
+pages/controls/MainDivider.qml
+pages/controls/Subtitle.qml
 pages/FriendInfo.qml
 pages/Friends.qml
-pages/MainDivider.qml
 pages/SplashScreen.qml
 pages/Test.qml
 pages/VKAuth.qml

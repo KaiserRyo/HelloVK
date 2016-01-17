@@ -23,7 +23,7 @@ static const uint qt_meta_data_ApplicationUI[] = {
        0,       // classname
        0,    0, // classinfo
        1,   14, // methods
-       1,   19, // properties
+       2,   19, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
@@ -34,6 +34,7 @@ static const uint qt_meta_data_ApplicationUI[] = {
 
  // properties: name, type, flags
       57,   41, 0x00095409,
+      88,   72, 0x00095409,
 
        0        // eod
 };
@@ -41,6 +42,7 @@ static const uint qt_meta_data_ApplicationUI[] = {
 static const char qt_meta_stringdata_ApplicationUI[] = {
     "ApplicationUI\0\0onSystemLanguageChanged()\0"
     "FriendsService*\0friendsService\0"
+    "DialogsService*\0dialogsService\0"
 };
 
 void ApplicationUI::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -97,22 +99,23 @@ int ApplicationUI::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         void *_v = _a[0];
         switch (_id) {
         case 0: *reinterpret_cast< FriendsService**>(_v) = friendsService(); break;
+        case 1: *reinterpret_cast< DialogsService**>(_v) = dialogsService(); break;
         }
-        _id -= 1;
+        _id -= 2;
     } else if (_c == QMetaObject::WriteProperty) {
-        _id -= 1;
+        _id -= 2;
     } else if (_c == QMetaObject::ResetProperty) {
-        _id -= 1;
+        _id -= 2;
     } else if (_c == QMetaObject::QueryPropertyDesignable) {
-        _id -= 1;
+        _id -= 2;
     } else if (_c == QMetaObject::QueryPropertyScriptable) {
-        _id -= 1;
+        _id -= 2;
     } else if (_c == QMetaObject::QueryPropertyStored) {
-        _id -= 1;
+        _id -= 2;
     } else if (_c == QMetaObject::QueryPropertyEditable) {
-        _id -= 1;
+        _id -= 2;
     } else if (_c == QMetaObject::QueryPropertyUser) {
-        _id -= 1;
+        _id -= 2;
     }
 #endif // QT_NO_PROPERTIES
     return _id;
