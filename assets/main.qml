@@ -109,6 +109,9 @@ NavigationPane {
     onDataLoaded: {
         navigationPane.data = data;
         _app.friendsService.setFriends(data.friends);
+        _app.dialogsService.setDialogs(data.dialogs.items);
+        _app.dialogsService.setCount(data.dialogs.count);
+        _app.dialogsService.setUnreadDialogs(data.dialogs.unread_dialogs);
         
         splashScreen.close();
         LongPollService.init(Store.create(), _app);

@@ -28,6 +28,7 @@ using namespace bb::cascades;
 Q_DECL_EXPORT int main(int argc, char **argv)
 {
     qmlRegisterType<FriendsService>("com.chachkouski", 1, 0, "FriendsService");
+    qmlRegisterType<DialogsService>("com.chachkouski", 1, 0, "DialogsService");
 
     Application app(argc, argv);
 

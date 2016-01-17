@@ -30,6 +30,7 @@ ApplicationUI::ApplicationUI() :
     m_pTranslator = new QTranslator(this);
     m_pLocaleHandler = new LocaleHandler(this);
     m_friendsService = new FriendsService(this);
+    m_dialogsService = new DialogsService(this);
 
     bool res = QObject::connect(m_pLocaleHandler, SIGNAL(systemLanguageChanged()), this, SLOT(onSystemLanguageChanged()));
     // This is only available in Debug builds
@@ -66,4 +67,8 @@ void ApplicationUI::onSystemLanguageChanged()
 
 FriendsService* ApplicationUI::friendsService() {
     return m_friendsService;
+}
+
+DialogsService* ApplicationUI::dialogsService() {
+    return m_dialogsService;
 }

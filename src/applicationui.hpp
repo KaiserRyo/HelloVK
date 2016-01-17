@@ -19,6 +19,7 @@
 
 #include <QObject>
 #include "FriendsService.hpp"
+#include "DialogsService.hpp"
 
 namespace bb
 {
@@ -39,6 +40,7 @@ class ApplicationUI : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(FriendsService* friendsService READ friendsService CONSTANT)
+    Q_PROPERTY(DialogsService* dialogsService READ dialogsService CONSTANT)
 public:
     ApplicationUI();
     virtual ~ApplicationUI() {}
@@ -49,6 +51,9 @@ private:
     bb::cascades::LocaleHandler* m_pLocaleHandler;
     FriendsService* friendsService();
     FriendsService* m_friendsService;
+
+    DialogsService* dialogsService();
+    DialogsService* m_dialogsService;
 };
 
 #endif /* ApplicationUI_HPP_ */
