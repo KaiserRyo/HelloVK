@@ -4,12 +4,7 @@
 <context>
     <name>FriendInfo</name>
     <message>
-        <location filename="../assets/pages/FriendInfo.qml" line="92"/>
-        <source> in </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../assets/pages/FriendInfo.qml" line="233"/>
+        <location filename="../assets/pages/FriendInfo.qml" line="159"/>
         <source>Write a message</source>
         <translation type="unfinished"></translation>
     </message>
@@ -60,6 +55,14 @@
     <message>
         <location filename="../assets/pages/components/FriendsSearchTitleBar.qml" line="34"/>
         <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>FriendsService</name>
+    <message>
+        <location filename="../assets/js/FriendsService.js" line="79"/>
+        <source> in </source>
         <translation type="unfinished"></translation>
     </message>
 </context>
