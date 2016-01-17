@@ -70,7 +70,6 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/main.qml) \
         $$quote($$BASEDIR/assets/pages/FriendInfo.qml) \
         $$quote($$BASEDIR/assets/pages/Friends.qml) \
-        $$quote($$BASEDIR/assets/pages/MainDivider.qml) \
         $$quote($$BASEDIR/assets/pages/SplashScreen.qml) \
         $$quote($$BASEDIR/assets/pages/Test.qml) \
         $$quote($$BASEDIR/assets/pages/VKAuth.qml) \
@@ -82,16 +81,20 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/pages/components/ContactSmsContainer.qml) \
         $$quote($$BASEDIR/assets/pages/components/FriendListItem.qml) \
         $$quote($$BASEDIR/assets/pages/components/FriendsSearchTitleBar.qml) \
-        $$quote($$BASEDIR/assets/pages/controls/BigDivider.qml)
+        $$quote($$BASEDIR/assets/pages/controls/BigDivider.qml) \
+        $$quote($$BASEDIR/assets/pages/controls/MainDivider.qml) \
+        $$quote($$BASEDIR/assets/pages/controls/Subtitle.qml)
 }
 
 config_pri_source_group1 {
     SOURCES += \
+        $$quote($$BASEDIR/src/DialogsService.cpp) \
         $$quote($$BASEDIR/src/FriendsService.cpp) \
         $$quote($$BASEDIR/src/applicationui.cpp) \
         $$quote($$BASEDIR/src/main.cpp)
 
     HEADERS += \
+        $$quote($$BASEDIR/src/DialogsService.hpp) \
         $$quote($$BASEDIR/src/FriendsService.hpp) \
         $$quote($$BASEDIR/src/applicationui.hpp)
 }
