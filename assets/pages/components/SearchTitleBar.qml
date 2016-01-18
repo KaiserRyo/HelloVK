@@ -5,6 +5,10 @@ TitleBar {
     signal search(variant textParts)
     signal cancelSearch
     
+    function setFocus() {
+        textField.requestFocus();
+    }
+    
     kind: TitleBarKind.FreeForm
     kindProperties: FreeFormTitleBarKindProperties {
         Container {
@@ -42,5 +46,9 @@ TitleBar {
                 }
             }            
         }
+    }
+    
+    onCreationCompleted: {
+        console.debug("search title created");
     }
 }

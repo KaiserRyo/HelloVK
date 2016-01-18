@@ -13,6 +13,7 @@ class DialogsService : public QObject {
     Q_PROPERTY(int count READ count WRITE setCount NOTIFY countChanged)
     Q_PROPERTY(int unreadDialogs READ unreadDialogs WRITE setUnreadDialogs NOTIFY unreadDialogsChanged)
     Q_PROPERTY(QVariant dialogs READ dialogs WRITE setDialogs NOTIFY dialogsChanged)
+    Q_PROPERTY(QVariant dialogsUsers READ dialogsUsers WRITE setDialogsUsers NOTIFY dialogsUsersChanged)
 
 public:
     DialogsService(QObject* parent = 0);
@@ -27,15 +28,20 @@ public:
     Q_INVOKABLE QVariant dialogs() const;
     Q_INVOKABLE void setDialogs(const QVariant& dialogs);
 
+    Q_INVOKABLE QVariant dialogsUsers() const;
+    Q_INVOKABLE void setDialogsUsers(const QVariant& dialogsUsers);
+
 signals:
     void countChanged();
     void unreadDialogsChanged();
     void dialogsChanged();
+    void dialogsUsersChanged();
 
 private:
     int m_count;
     int m_unreadDialogs;
     QVariant m_dialogs;
+    QVariant m_dialogsUsers;
 };
 
 

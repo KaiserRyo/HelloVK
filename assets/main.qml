@@ -19,6 +19,7 @@ import "js/VKService.js" as VKService;
 import "js/LongPollService.js" as LongPollService;
 import "js/Store.js" as Store;
 import "js/Common.js" as Common;
+import "js/FriendsService.js" as FriendsService;
 import "pages";
 
 NavigationPane {
@@ -50,6 +51,14 @@ NavigationPane {
                 onTriggered: {
                     navigationPane.push(friendsPage.createObject());
                 }
+            },
+            ActionItem {
+                title: qsTr("Dialogs")
+                ActionBar.placement: ActionBarPlacement.OnBar
+                
+                onTriggered: {
+                    navigationPane.push(dialogsPage.createObject());
+                }
             }
         ]
              
@@ -79,8 +88,8 @@ NavigationPane {
             source: "asset:///pages/FriendInfo.qml"
         },
         ComponentDefinition {
-            id: test
-            source: "asset:///pages/Test.qml"
+            id: dialogsPage
+            source: "asset:///pages/Dialogs.qml"
         },
         SplashScreen {
             id: splashScreen
@@ -109,7 +118,17 @@ NavigationPane {
     onDataLoaded: {
         navigationPane.data = data;
         _app.friendsService.setFriends(data.friends);
-        _app.dialogsService.setDialogs(data.dialogs.items);
+        _app.dialogsService.setDialogsUsers(data.dialogs_users);
+        
+        var dialogs = data.dialogs.items.slice();
+        dialogs.forEach(function(dialog) {
+            var user = FriendsService.findById(_app.dialogsService.dialogsUsers, dialog.message.user_id);
+            if (user.is_friend !== 1) {
+                dialog.user = user;
+            }
+        });
+        
+        _app.dialogsService.setDialogs(dialogs);
         _app.dialogsService.setCount(data.dialogs.count);
         _app.dialogsService.setUnreadDialogs(data.dialogs.unread_dialogs);
         

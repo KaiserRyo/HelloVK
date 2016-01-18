@@ -57,4 +57,17 @@ void DialogsService::setDialogs(const QVariant& dialogs) {
     emit dialogsChanged();
 }
 
+QVariant DialogsService::dialogsUsers() const {
+    return m_dialogsUsers;
+}
+
+void DialogsService::setDialogsUsers(const QVariant& dialogsUsers) {
+    if (m_dialogsUsers == dialogsUsers) return;
+
+    cout << "DialogsUsers changed" << endl;
+
+    m_dialogsUsers = dialogsUsers;
+    emit dialogsUsersChanged();
+}
+
 

@@ -68,6 +68,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/js/VKService.js) \
         $$quote($$BASEDIR/assets/json/friends.json) \
         $$quote($$BASEDIR/assets/main.qml) \
+        $$quote($$BASEDIR/assets/pages/Dialogs.qml) \
         $$quote($$BASEDIR/assets/pages/FriendInfo.qml) \
         $$quote($$BASEDIR/assets/pages/Friends.qml) \
         $$quote($$BASEDIR/assets/pages/SplashScreen.qml) \
@@ -79,8 +80,9 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/pages/components/ContactSiteContainer.qml) \
         $$quote($$BASEDIR/assets/pages/components/ContactSkypeContainer.qml) \
         $$quote($$BASEDIR/assets/pages/components/ContactSmsContainer.qml) \
+        $$quote($$BASEDIR/assets/pages/components/DialogListItem.qml) \
         $$quote($$BASEDIR/assets/pages/components/FriendListItem.qml) \
-        $$quote($$BASEDIR/assets/pages/components/FriendsSearchTitleBar.qml) \
+        $$quote($$BASEDIR/assets/pages/components/SearchTitleBar.qml) \
         $$quote($$BASEDIR/assets/pages/controls/BigDivider.qml) \
         $$quote($$BASEDIR/assets/pages/controls/MainDivider.qml) \
         $$quote($$BASEDIR/assets/pages/controls/Subtitle.qml)

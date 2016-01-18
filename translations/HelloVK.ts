@@ -2,6 +2,29 @@
 <!DOCTYPE TS>
 <TS version="2.0">
 <context>
+    <name>Dialogs</name>
+    <message>
+        <location filename="../assets/pages/Dialogs.qml" line="70"/>
+        <source>Dialogs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/pages/Dialogs.qml" line="39"/>
+        <source>All dialogs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/pages/Dialogs.qml" line="47"/>
+        <source>Search</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/pages/Dialogs.qml" line="58"/>
+        <source>Unread dialogs</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>FriendInfo</name>
     <message>
         <location filename="../assets/pages/FriendInfo.qml" line="159"/>
@@ -25,36 +48,23 @@
 <context>
     <name>Friends</name>
     <message>
-        <location filename="../assets/pages/Friends.qml" line="68"/>
+        <location filename="../assets/pages/Friends.qml" line="71"/>
         <source>All friends</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/Friends.qml" line="78"/>
+        <location filename="../assets/pages/Friends.qml" line="81"/>
         <source>Search</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/Friends.qml" line="88"/>
+        <location filename="../assets/pages/Friends.qml" line="92"/>
         <source>Friends online</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/Friends.qml" line="102"/>
+        <location filename="../assets/pages/Friends.qml" line="106"/>
         <source>Friends</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>FriendsSearchTitleBar</name>
-    <message>
-        <location filename="../assets/pages/components/FriendsSearchTitleBar.qml" line="24"/>
-        <source>Enter text</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../assets/pages/components/FriendsSearchTitleBar.qml" line="34"/>
-        <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -63,6 +73,19 @@
     <message>
         <location filename="../assets/js/FriendsService.js" line="79"/>
         <source> in </source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SearchTitleBar</name>
+    <message>
+        <location filename="../assets/pages/components/SearchTitleBar.qml" line="28"/>
+        <source>Enter text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/pages/components/SearchTitleBar.qml" line="38"/>
+        <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -77,13 +100,18 @@
 <context>
     <name>main</name>
     <message>
-        <location filename="../assets/main.qml" line="35"/>
+        <location filename="../assets/main.qml" line="36"/>
         <source>Logging in...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="46"/>
+        <location filename="../assets/main.qml" line="47"/>
         <source>Friends</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/main.qml" line="56"/>
+        <source>Dialogs</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
