@@ -3,10 +3,9 @@ import bb.cascades 1.4
 CustomListItem {
     id: listItem
     
-    property variant user: {first_name: 'Denis', last_name: 'Demianov', online: 1, 
-        last_seen: {time : 1452962381}};
     property variant dialog: {message: {body: 'кстати,табы-то что нужно было)) спасибО)'}, 
-        unread: 52};
+        unread: 52, user: {first_name: 'Denis', last_name: 'Demianov', online: 1, 
+            last_seen: {time : 1452962381}}};
     
     property string date: "16 янв 2016 в 21:30"
     
@@ -16,7 +15,7 @@ CustomListItem {
         }
         Container {
             WebView {
-                url: dialog.message.chat_id ? dialog.message.photo_100 : listItem.user.photo_100
+                url: dialog.message.chat_id ? dialog.message.photo_100 : dialog.user.photo_100
                 preferredWidth: ui.du(11.0)
                 minWidth: ui.du(11.0)
             }
@@ -31,7 +30,7 @@ CustomListItem {
                 Container {
                     Label {
                         id: title
-                        text: dialog.message.chat_id ? dialog.message.title : listItem.user.first_name + " " + listItem.user.last_name
+                        text: dialog.message.chat_id ? dialog.message.title : dialog.user.first_name + " " + dialog.user.last_name
                         textStyle.base: {
                             SystemDefaults.TextStyles.TitleText
                         }

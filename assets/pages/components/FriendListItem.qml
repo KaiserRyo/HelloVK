@@ -41,7 +41,7 @@ CustomListItem {
                 }
                 Label {
                     id: description
-                    text: friend.deactivated ? qsTr("account deleted") : 
+                    text: friend.deactivated ? qsTr("account deactivated") : 
                         friend.online == 0 ? "" : qsTr("online")
                     textStyle.base: {
                        SystemDefaults.TextStyles.BodyText

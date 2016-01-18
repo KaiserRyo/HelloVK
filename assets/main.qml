@@ -123,9 +123,9 @@ NavigationPane {
         var dialogs = data.dialogs.items.slice();
         dialogs.forEach(function(dialog) {
             var user = FriendsService.findById(_app.dialogsService.dialogsUsers, dialog.message.user_id);
-            if (user.is_friend !== 1) {
+//            if (user.is_friend !== 1) {
                 dialog.user = user;
-            }
+//            }
         });
         
         _app.dialogsService.setDialogs(dialogs);

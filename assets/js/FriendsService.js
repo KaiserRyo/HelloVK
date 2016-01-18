@@ -10,10 +10,10 @@ function search(friendsList, textParts) {
     });
 }
 
-function fillFriendsList(friendsArrayComponent, friendsList) {
-	friendsArrayComponent.clear();
-    for (var i = 0; i < friendsList.length; i ++) {
-    	friendsArrayComponent.insert(friendsList[i]);
+function fillFriendsList(friendsArray, friends) {
+	friendsArray.clear();
+    for (var i = 0; i < friends.length; i ++) {
+    	friendsArray.insert(friends[i]);
     }
 }
 

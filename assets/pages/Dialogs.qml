@@ -1,13 +1,18 @@
 import bb.cascades 1.4
 import "components";
 import "/js/FriendsService.js" as FriendsService;
+import "/js/DialogsService.js" as DialogsService;
 
 Page {
     id: dialogsPage
     
-    property variant dialogs: _app.dialogsService.dialogs;
+    property bool sortedByUnreadMode: false
     
     function cleanup() {}
+    
+    function getDialogs() {
+        return sortedByUnreadMode ? DialogsService.getUnread(_app.dialogsService.dialogs) : _app.dialogsService.dialogs;
+    }
         
     titleBar: defaultTitleBar
     
@@ -21,7 +26,6 @@ Page {
                 ListItemComponent {
                     type: ""
                     DialogListItem {
-                        user: ListItemData.user ? ListItemData.user : FriendsService.findById(_app.friendsService.friends, ListItemData.message.user_id);
                         dialog: ListItemData
                     }
                 }
@@ -30,8 +34,7 @@ Page {
     }
     
     onCreationCompleted: {
-        dialogsArray.clear();
-        dialogsArray.append(dialogs);
+        DialogsService.fillDialogsList(dialogsArray, getDialogs());
     }   
     
     actions: [
@@ -40,7 +43,8 @@ Page {
             ActionBar.placement: ActionBarPlacement.OnBar
             
             onTriggered: {
-                console.debug("all dialogs chosen");
+                dialogsPage.sortedByUnreadMode = false;
+                DialogsService.fillDialogsList(dialogsArray, getDialogs());
             }
         },
         ActionItem {
@@ -59,7 +63,8 @@ Page {
             ActionBar.placement: ActionBarPlacement.OnBar
             
             onTriggered: {
-                console.debug("unread dialogs chosen");
+                dialogsPage.sortedByUnreadMode = true;
+                DialogsService.fillDialogsList(dialogsArray, getDialogs());
             }
         }
     ] 
@@ -72,12 +77,13 @@ Page {
         SearchTitleBar {
             id: searchTitleBar
             onSearch: {
-                console.debug("start dialogs search");
+                DialogsService.fillDialogsList(dialogsArray, DialogsService.search(getDialogs(), textParts));
             }
             
             onCancelSearch: {
                 console.debug("cancel dialogs search");
                 dialogsPage.setTitleBar(defaultTitleBar);
+                DialogsService.fillDialogsList(dialogsArray, getDialogs());
             }
         }
     ]

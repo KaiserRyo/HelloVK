@@ -61,6 +61,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/img/sent.png) \
         $$quote($$BASEDIR/assets/img/yellow_pellet.png) \
         $$quote($$BASEDIR/assets/js/Common.js) \
+        $$quote($$BASEDIR/assets/js/DialogsService.js) \
         $$quote($$BASEDIR/assets/js/FriendsService.js) \
         $$quote($$BASEDIR/assets/js/Http.js) \
         $$quote($$BASEDIR/assets/js/LongPollService.js) \

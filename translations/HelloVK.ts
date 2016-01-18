@@ -4,22 +4,22 @@
 <context>
     <name>Dialogs</name>
     <message>
-        <location filename="../assets/pages/Dialogs.qml" line="70"/>
+        <location filename="../assets/pages/Dialogs.qml" line="75"/>
         <source>Dialogs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/Dialogs.qml" line="39"/>
+        <location filename="../assets/pages/Dialogs.qml" line="42"/>
         <source>All dialogs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/Dialogs.qml" line="47"/>
+        <location filename="../assets/pages/Dialogs.qml" line="51"/>
         <source>Search</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/Dialogs.qml" line="58"/>
+        <location filename="../assets/pages/Dialogs.qml" line="62"/>
         <source>Unread dialogs</source>
         <translation type="unfinished"></translation>
     </message>
@@ -36,7 +36,7 @@
     <name>FriendListItem</name>
     <message>
         <location filename="../assets/pages/components/FriendListItem.qml" line="44"/>
-        <source>account deleted</source>
+        <source>account deactivated</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
