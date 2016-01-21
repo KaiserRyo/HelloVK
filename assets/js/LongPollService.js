@@ -77,7 +77,8 @@ function getLongPollHistory(ts) {
 							
 							dialog.message = message;
 							
-							newDialogs.splice(0, 0, dialog);
+//							newDialogs.splice(0, 0, dialog);
+							newDialogs.push(dialog);
 							
 							app.dialogsService.setDialogs(newDialogs);
 							app.dialogsService.setCount(++app.dialogsService.count);

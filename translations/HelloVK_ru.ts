@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0">
+<TS version="2.0" language="ru_RU">
 <context>
     <name>DialogListItem</name>
     <message>
@@ -12,18 +12,13 @@
 <context>
     <name>Dialogs</name>
     <message>
-        <location filename="../assets/pages/Dialogs.qml" line="134"/>
-        <source>Dialogs</source>
+        <location filename="../assets/pages/Dialogs.qml" line="72"/>
+        <source>This action cannot be undone. Continue?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../assets/pages/Dialogs.qml" line="101"/>
         <source>All dialogs</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../assets/pages/Dialogs.qml" line="72"/>
-        <source>This action cannot be undone. Continue?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -34,6 +29,11 @@
     <message>
         <location filename="../assets/pages/Dialogs.qml" line="121"/>
         <source>Unread dialogs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/pages/Dialogs.qml" line="134"/>
+        <source>Dialogs</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
