@@ -7,7 +7,10 @@ CustomListItem {
         unread: 52, user: {first_name: 'Denis', last_name: 'Demianov', online: 1, 
             last_seen: {time : 1452962381}}};
     
-    property string date: "16 янв 2016 в 21:30"
+    function getDate() {
+        var date = new Date(dialog.message.date * 1000);
+        return Qt.formatDate(date, "dd MMM yyyy") + qsTr(" in ") + Qt.formatTime(date, "HH:mm");
+    }
     
     Container {
         layout: StackLayout {
@@ -46,8 +49,8 @@ CustomListItem {
                         textStyle.color: Color.White
                     }
                     visible: dialog.hasOwnProperty("unread");
-                    background: Color.create("#0092CC");
-                    
+                    background: Color.create("#0092CC")
+
                     leftPadding: ui.du(1)
                     rightPadding: ui.du(1)
                     topPadding: ui.du(0.5)
@@ -62,7 +65,7 @@ CustomListItem {
             Container {
                 layout: StackLayout {}
                 Label {
-                    text: date
+                    text: listItem.getDate();
                     textStyle.base: SystemDefaults.TextStyles.SmallText
                     verticalAlignment: VerticalAlignment.Center
                     textStyle.color: Color.Gray

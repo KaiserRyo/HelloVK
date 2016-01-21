@@ -30,35 +30,33 @@ Page {
     function cleanup() {
         _app.friendsService.friendOnlineChanged.disconnect(friendsPage.friendOnlineChanged);
     }
-    
+
     titleBar: defaultTitleBar
+    actionBarAutoHideBehavior: ActionBarAutoHideBehavior.HideOnScroll
 
-    Container {
-        ListView {
-            id: friendsList
-            dataModel: GroupDataModel {
-                id: friendsArray
-            }
-            listItemComponents: [
-                ListItemComponent {
-                    type: "item"
-                    FriendListItem {
-                        friend: ListItemData
-                    }
-                }
-            ]
-            onTriggered: {
-                friendsList.clearSelection();
-                friendsList.toggleSelection(indexPath);
-                if (indexPath.length > 1) {
-                    friendChosen(friendsArray.data(indexPath));
+    ListView {
+        id: friendsList
+        dataModel: GroupDataModel {
+            id: friendsArray
+            sortingKeys: [ "first_name", "last_name" ]
+        }
+        listItemComponents: [
+            ListItemComponent {
+                type: "item"
+                FriendListItem {
+                    friend: ListItemData
                 }
             }
+        ]
+        onTriggered: {
+            friendsList.clearSelection();
+            friendsList.toggleSelection(indexPath);
+            if (indexPath.length > 1) {
+                friendChosen(friendsArray.data(indexPath));
+            }
         }
-
-        onCreationCompleted: {
-            friendsArray.sortingKeys = [ "first_name", "last_name" ];
-        }
+        scrollIndicatorMode: ScrollIndicatorMode.ProportionalBar
+        scrollRole: ScrollRole.Main
     }
 
     onCreationCompleted: {

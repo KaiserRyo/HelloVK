@@ -1,12 +1,20 @@
 Qt.include("Http.js");
 Qt.include("FriendsService.js");
+Qt.include("DialogsService.js");
 Qt.include("Common.js");
 
 var app;
 var longPollServer = {};
+
 var Status = {
-	online : 1,
-	offline : 0
+	ONLINE : 1,
+	OFFLINE : 0
+};
+
+var Action = {
+	FRIEND_BECAME_ONLINE: 8,
+	FRIEND_BECAME_OFFLINE: 9,
+	MESSAGE_ADDED: 4
 };
 
 function start() {
@@ -17,11 +25,6 @@ function start() {
 	}, function(response) {
 		console.debug(response);
 		longPollServer = JSON.parse(response).response;
-
-		console.debug("key" + longPollServer.key);
-		console.debug("server: " + longPollServer.server);
-		console.debug("ts: " + longPollServer.ts);
-
 		getLongPollHistory(longPollServer.ts);
 	});
 }
@@ -42,10 +45,46 @@ function getLongPollHistory(ts) {
 			}
 		} else {
 			responseObj.updates.forEach(function(update) {
-				if (update[0] === 8) {
-					friendOnlineChanged(-update[1], Status.online);
-				} else if (update[0] === 9) {
-					friendOnlineChanged(-update[1], Status.offline);
+				var responseCode = update[0];
+				if (responseCode === Action.FRIEND_BECAME_ONLINE) {
+					friendOnlineChanged(-update[1], Status.ONLINE);
+				} else if (responseCode === Action.FRIEND_BECAME_OFFLINE) {
+					friendOnlineChanged(-update[1], Status.OFFLINE);
+				} else if (responseCode === Action.MESSAGE_ADDED) {
+					var newDialogs = app.dialogsService.dialogs.slice();
+					var userId = update[3];
+					
+					var dialog = findByUserId(newDialogs, userId);
+					
+					if (dialog) {
+						app.dialogsService.dialogUpdated(updateDialogByUser(dialog, update));
+						app.dialogsService.setDialogs(newDialogs);
+					} else {
+						var friend = findUserById(app.friendsService.friends, userId);
+						if (friend) {
+							dialog = {};
+							dialog.user = friend;
+							dialog.unread = 1;
+							
+							var message = {};
+							message.id = update[1];
+							message.out = 0;
+							message.user_id = friend.id;
+							message.read_state = 0;
+							message.date = update[4];
+							message.title = update[5];
+							message.body = update[6];
+							
+							dialog.message = message;
+							
+							newDialogs.splice(0, 0, dialog);
+							
+							app.dialogsService.setDialogs(newDialogs);
+							app.dialogsService.setCount(++app.dialogsService.count);
+							app.dialogsService.setUnreadDialogs(++app.dialogsService.unreadDialogs);
+							app.dialogsService.dialogAdded(dialog);
+						}
+					}
 				}
 			});
 			getLongPollHistory(responseObj.ts);
@@ -54,9 +93,12 @@ function getLongPollHistory(ts) {
 	});
 }
 
+//    {"ts":1869517277,"updates":[[4,82033,33,214914887,1453116338," ... ","Дарова, лысый",{}],[80,3,0],[7,214914887,82032]]}
+
+
 function friendOnlineChanged(userId, status) {
 	var newFriendsList = app.friendsService.friends.slice();
-	var friend = findById(newFriendsList, userId);
+	var friend = findUserById(newFriendsList, userId);
 	friend.online = status;
 	if (friend.online === 0) {
 		friend.last_seen.time = new Date().getMilliseconds();

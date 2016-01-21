@@ -20,6 +20,7 @@ import "js/LongPollService.js" as LongPollService;
 import "js/Store.js" as Store;
 import "js/Common.js" as Common;
 import "js/FriendsService.js" as FriendsService;
+import "js/DialogsService.js" as DialogsService;
 import "pages";
 
 NavigationPane {
@@ -89,7 +90,7 @@ NavigationPane {
         },
         ComponentDefinition {
             id: dialogsPage
-            source: "asset:///pages/Dialogs.qml"
+            Dialogs {}
         },
         SplashScreen {
             id: splashScreen
@@ -122,10 +123,8 @@ NavigationPane {
         
         var dialogs = data.dialogs.items.slice();
         dialogs.forEach(function(dialog) {
-            var user = FriendsService.findById(_app.dialogsService.dialogsUsers, dialog.message.user_id);
-//            if (user.is_friend !== 1) {
-                dialog.user = user;
-//            }
+            var user = FriendsService.findUserById(_app.dialogsService.dialogsUsers, dialog.message.user_id);
+            dialog.user = user;
         });
         
         _app.dialogsService.setDialogs(dialogs);

@@ -2,24 +2,37 @@
 <!DOCTYPE TS>
 <TS version="2.0">
 <context>
+    <name>DialogListItem</name>
+    <message>
+        <location filename="../assets/pages/components/DialogListItem.qml" line="12"/>
+        <source> in </source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Dialogs</name>
     <message>
-        <location filename="../assets/pages/Dialogs.qml" line="75"/>
+        <location filename="../assets/pages/Dialogs.qml" line="125"/>
         <source>Dialogs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/Dialogs.qml" line="42"/>
+        <location filename="../assets/pages/Dialogs.qml" line="92"/>
         <source>All dialogs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/Dialogs.qml" line="51"/>
+        <location filename="../assets/pages/Dialogs.qml" line="63"/>
+        <source>This action cannot be undone. Continue?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/pages/Dialogs.qml" line="101"/>
         <source>Search</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/Dialogs.qml" line="62"/>
+        <location filename="../assets/pages/Dialogs.qml" line="112"/>
         <source>Unread dialogs</source>
         <translation type="unfinished"></translation>
     </message>
@@ -48,22 +61,22 @@
 <context>
     <name>Friends</name>
     <message>
-        <location filename="../assets/pages/Friends.qml" line="71"/>
+        <location filename="../assets/pages/Friends.qml" line="69"/>
         <source>All friends</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/Friends.qml" line="81"/>
+        <location filename="../assets/pages/Friends.qml" line="79"/>
         <source>Search</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/Friends.qml" line="92"/>
+        <location filename="../assets/pages/Friends.qml" line="90"/>
         <source>Friends online</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/Friends.qml" line="106"/>
+        <location filename="../assets/pages/Friends.qml" line="104"/>
         <source>Friends</source>
         <translation type="unfinished"></translation>
     </message>
@@ -100,17 +113,17 @@
 <context>
     <name>main</name>
     <message>
-        <location filename="../assets/main.qml" line="36"/>
+        <location filename="../assets/main.qml" line="37"/>
         <source>Logging in...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="47"/>
+        <location filename="../assets/main.qml" line="48"/>
         <source>Friends</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="56"/>
+        <location filename="../assets/main.qml" line="57"/>
         <source>Dialogs</source>
         <translation type="unfinished"></translation>
     </message>

@@ -37,7 +37,7 @@ function createHTMLlink(str) {
 	return "<a href=\"" + (Common.contains(str, "http://") || Common.contains(str, "https://") ? str : "http://" + str) + "\">" + str + "</a>";
 }
 
-function findById(friendsList, userId) {
+function findUserById(friendsList, userId) {
 	return friendsList.filter(function(friend) {
 		return friend.id === userId;
 	})[0];
