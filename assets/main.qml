@@ -15,9 +15,10 @@
  */
 
 import bb.cascades 1.4
+import bb.platform 1.3
+
 import "js/VKService.js" as VKService;
 import "js/LongPollService.js" as LongPollService;
-import "js/Store.js" as Store;
 import "js/Common.js" as Common;
 import "js/FriendsService.js" as FriendsService;
 import "js/DialogsService.js" as DialogsService;
@@ -30,6 +31,12 @@ NavigationPane {
     
     signal vkServiceInitialized
     signal dataLoaded(variant data)
+    
+    function messageRecevied(dialog) {
+        dialogNotification.title = "HelloVK: " + dialog.user.first_name + " " + dialog.user.last_name;
+        dialogNotification.body = dialog.message.body;
+        dialogNotification.notify();
+    }
 
     Page {
         id: firstPage
@@ -69,9 +76,10 @@ NavigationPane {
          VKAuth {
             id: vkAuth
             onAccessTokenAndUserIdReceived: {
-                Store.init(accessToken, userId, apiVersion);
-                VKService.initService(Store.create());
+                _app.http.init(accessToken, userId, apiVersion);
+                VKService.initService(_app);
                 vkServiceInitialized();
+                console.debug("VK SERVICE INITIALIZED");
             }
         },
         ComponentDefinition {
@@ -94,7 +102,10 @@ NavigationPane {
         },
         SplashScreen {
             id: splashScreen
-        }
+        },
+        Notification {
+            id: dialogNotification
+        } 
     ]
 
     onPopTransitionEnded: {
@@ -104,6 +115,8 @@ NavigationPane {
     
     onCreationCompleted: {
         vkAuth.open();
+        _app.dialogsService.dialogAdded.connect(messageRecevied);
+        _app.dialogsService.dialogUpdated.connect(messageRecevied);
     }
     
     onVkServiceInitialized: {
@@ -132,7 +145,7 @@ NavigationPane {
         _app.dialogsService.setUnreadDialogs(data.dialogs.unread_dialogs);
         
         splashScreen.close();
-        LongPollService.init(Store.create(), _app);
+        LongPollService.init(_app);
         LongPollService.start();
     }    
 }

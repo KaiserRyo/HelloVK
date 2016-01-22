@@ -31,6 +31,7 @@ ApplicationUI::ApplicationUI() :
     m_pLocaleHandler = new LocaleHandler(this);
     m_friendsService = new FriendsService(this);
     m_dialogsService = new DialogsService(this);
+    m_http = new Http(this);
 
     bool res = QObject::connect(m_pLocaleHandler, SIGNAL(systemLanguageChanged()), this, SLOT(onSystemLanguageChanged()));
     // This is only available in Debug builds
@@ -74,4 +75,8 @@ FriendsService* ApplicationUI::friendsService() {
 
 DialogsService* ApplicationUI::dialogsService() {
     return m_dialogsService;
+}
+
+Http* ApplicationUI::http() {
+    return m_http;
 }

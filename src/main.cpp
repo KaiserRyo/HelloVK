@@ -29,6 +29,7 @@ Q_DECL_EXPORT int main(int argc, char **argv)
 {
     qmlRegisterType<FriendsService>("com.chachkouski", 1, 0, "FriendsService");
     qmlRegisterType<DialogsService>("com.chachkouski", 1, 0, "DialogsService");
+    qmlRegisterType<Http>("com.chachkouski", 1, 0, "Http");
 
     Application app(argc, argv);
 

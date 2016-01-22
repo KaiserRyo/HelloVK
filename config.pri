@@ -93,12 +93,14 @@ config_pri_source_group1 {
     SOURCES += \
         $$quote($$BASEDIR/src/DialogsService.cpp) \
         $$quote($$BASEDIR/src/FriendsService.cpp) \
+        $$quote($$BASEDIR/src/Http.cpp) \
         $$quote($$BASEDIR/src/applicationui.cpp) \
         $$quote($$BASEDIR/src/main.cpp)
 
     HEADERS += \
         $$quote($$BASEDIR/src/DialogsService.hpp) \
         $$quote($$BASEDIR/src/FriendsService.hpp) \
+        $$quote($$BASEDIR/src/Http.hpp) \
         $$quote($$BASEDIR/src/applicationui.hpp)
 }
 

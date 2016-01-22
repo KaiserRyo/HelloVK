@@ -47,6 +47,4 @@ private:
     QVariant m_dialogsUsers;
 };
 
-
-
 #endif /* DIALOGSSERVICE_HPP_ */

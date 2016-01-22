@@ -1,10 +1,10 @@
 import bb.cascades 1.4
 import bb.system 1.2
-import bb.platform 1.3
 
-import "components"
-import "/js/FriendsService.js" as FriendsService
-import "/js/DialogsService.js" as DialogsService
+import "components";
+import "/js/FriendsService.js" as FriendsService;
+import "/js/DialogsService.js" as DialogsService;
+import "/js/VKService.js" as VKService;
 
 Page {
     id: dialogsPage
@@ -25,22 +25,14 @@ Page {
             var d = dialogsArray.value(i);
             if (d.message.user_id === dialog.message.user_id) {
                 dialogsArray.replace(i, dialog);
-                messageRecevied(dialog);
             }
         }
     }
     
     function dialogAdded(dialog) {
         dialogsArray.insert(0, dialog);
-        messageRecevied(dialog);
     }
-    
-    function messageRecevied(dialog) {
-        var dialogAddedNotif = notification.createObject();
-        dialogAddedNotif.title = dialog.user.first_name + " " + dialog.user.last_name;
-        dialogAddedNotif.body = dialog.message.body;
-    }
-    
+        
     titleBar: defaultTitleBar
     actionBarAutoHideBehavior: ActionBarAutoHideBehavior.HideOnScroll
 
@@ -51,6 +43,10 @@ Page {
         
         dataModel: ArrayDataModel {
             id: dialogsArray
+        }
+        
+        onCreationCompleted: {
+            VKService.initService(_app);
         }
         
         listItemComponents: [
@@ -74,14 +70,18 @@ Page {
                                         onFinished: {
                                             if (value === SystemUiResult.ConfirmButtonSelection) {
                                                 var dialog = ListItemData;
-                                                var dataModel = dialogListItem.ListItem.view.dataModel;
-                                                dataModel.removeAt(dataModel.indexOf(dialog));
-                                                _app.dialogsService.setDialogs(DialogsService.deleteDialog(_app.dialogsService.dialogs, dialog));
-                                                _app.dialogsService.setCount(--_app.dialogsService.count);
+                                                VKService.messages.deleteDialog(dialog.user.id, function(responseCode) {
+                                                    if (responseCode === 1) {
+                                                        var dataModel = dialogListItem.ListItem.view.dataModel;
+                                                        dataModel.removeAt(dataModel.indexOf(dialog));
+                                                        _app.dialogsService.setDialogs(DialogsService.deleteDialog(_app.dialogsService.dialogs, dialog));
+                                                        _app.dialogsService.setCount(--_app.dialogsService.count);
+                                                    }
+                                                });
                                             }
                                         }
                                     }
-                                ]    
+                                ]   
                             }
                         }
                     ]
@@ -143,10 +143,6 @@ Page {
                 dialogsPage.setTitleBar(defaultTitleBar);
                 DialogsService.fillDialogsList(dialogsArray, getDialogs());
             }
-        },
-        ComponentDefinition {
-            id: notification
-            Notification {}    
-        }
+        }   
     ]
 }

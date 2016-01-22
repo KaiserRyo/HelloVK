@@ -22,22 +22,23 @@ static const uint qt_meta_data_FriendsService[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-       3,   14, // methods
-       1,   29, // properties
+       4,   14, // methods
+       1,   34, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       1,       // signalCount
+       2,       // signalCount
 
  // signals: signature, parameters, type, tag, flags
       16,   15,   15,   15, 0x05,
+      33,   15,   15,   15, 0x05,
 
  // methods: signature, parameters, type, tag, flags
-      42,   15,   33,   15, 0x02,
-      60,   52,   15,   15, 0x02,
+      72,   15,   63,   15, 0x02,
+      90,   82,   15,   15, 0x02,
 
  // properties: name, type, flags
-      52,   33, 0xff495103,
+      82,   63, 0xff495103,
 
  // properties: notify_signal_id
        0,
@@ -47,8 +48,8 @@ static const uint qt_meta_data_FriendsService[] = {
 
 static const char qt_meta_stringdata_FriendsService[] = {
     "FriendsService\0\0friendsChanged()\0"
-    "QVariant\0friends()\0friends\0"
-    "setFriends(QVariant)\0"
+    "friendOnlineChanged(QVariant)\0QVariant\0"
+    "friends()\0friends\0setFriends(QVariant)\0"
 };
 
 void FriendsService::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -58,9 +59,10 @@ void FriendsService::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
         FriendsService *_t = static_cast<FriendsService *>(_o);
         switch (_id) {
         case 0: _t->friendsChanged(); break;
-        case 1: { QVariant _r = _t->friends();
+        case 1: _t->friendOnlineChanged((*reinterpret_cast< const QVariant(*)>(_a[1]))); break;
+        case 2: { QVariant _r = _t->friends();
             if (_a[0]) *reinterpret_cast< QVariant*>(_a[0]) = _r; }  break;
-        case 2: _t->setFriends((*reinterpret_cast< const QVariant(*)>(_a[1]))); break;
+        case 3: _t->setFriends((*reinterpret_cast< const QVariant(*)>(_a[1]))); break;
         default: ;
         }
     }
@@ -98,9 +100,9 @@ int FriendsService::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 3)
+        if (_id < 4)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 3;
+        _id -= 4;
     }
 #ifndef QT_NO_PROPERTIES
       else if (_c == QMetaObject::ReadProperty) {
@@ -136,5 +138,12 @@ int FriendsService::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 void FriendsService::friendsChanged()
 {
     QMetaObject::activate(this, &staticMetaObject, 0, 0);
+}
+
+// SIGNAL 1
+void FriendsService::friendOnlineChanged(const QVariant & _t1)
+{
+    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 1, _a);
 }
 QT_END_MOC_NAMESPACE

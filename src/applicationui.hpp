@@ -20,6 +20,7 @@
 #include <QObject>
 #include "FriendsService.hpp"
 #include "DialogsService.hpp"
+#include "Http.hpp"
 
 namespace bb
 {
@@ -41,6 +42,7 @@ class ApplicationUI : public QObject
     Q_OBJECT
     Q_PROPERTY(FriendsService* friendsService READ friendsService CONSTANT)
     Q_PROPERTY(DialogsService* dialogsService READ dialogsService CONSTANT)
+    Q_PROPERTY(Http* http READ http CONSTANT)
 public:
     ApplicationUI();
     virtual ~ApplicationUI() {}
@@ -54,6 +56,9 @@ private:
 
     DialogsService* dialogsService();
     DialogsService* m_dialogsService;
+
+    Http* http();
+    Http* m_http;
 };
 
 #endif /* ApplicationUI_HPP_ */

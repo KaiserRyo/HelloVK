@@ -1,6 +1,8 @@
 var Http = {
 		vkApiUrl: 'https://api.vk.com/method',
-		store: {},
+		accessToken: '',
+		userId: '',
+		apiVersion: '',
 
 		request: function request(httpMethod, url, paramsStr, onSuccess, onError) {
 			var _req = new XMLHttpRequest();
@@ -28,9 +30,9 @@ var Http = {
 		stringifyParams: function stringifyParams(paramsObj) {
 			var data = paramsObj ? paramsObj : {};
 			
-			data.access_token = this.store.accessToken;
-			data.user_id = this.store.userId;
-			data.v = this.store.apiVersion;
+			data.access_token = this.accessToken;
+			data.user_id = this.userId;
+			data.v = this.apiVersion;
 			
 			var strinigfiedParams = '';
 			for ( var param in data) {
@@ -50,7 +52,9 @@ var Http = {
 					onError);
 		},
 
-		init: function init(store) {
-			this.store = store;
+		init: function init(accessToken, userId, apiVersion) {
+			this.accessToken = accessToken;
+			this.userId = userId;
+			this.apiVersion = apiVersion;
 		}
 };

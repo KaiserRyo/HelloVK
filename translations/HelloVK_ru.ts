@@ -12,7 +12,7 @@
 <context>
     <name>Dialogs</name>
     <message>
-        <location filename="../assets/pages/Dialogs.qml" line="72"/>
+        <location filename="../assets/pages/Dialogs.qml" line="68"/>
         <source>This action cannot be undone. Continue?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -113,17 +113,17 @@
 <context>
     <name>main</name>
     <message>
-        <location filename="../assets/main.qml" line="37"/>
+        <location filename="../assets/main.qml" line="44"/>
         <source>Logging in...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="48"/>
+        <location filename="../assets/main.qml" line="55"/>
         <source>Friends</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="57"/>
+        <location filename="../assets/main.qml" line="64"/>
         <source>Dialogs</source>
         <translation type="unfinished"></translation>
     </message>

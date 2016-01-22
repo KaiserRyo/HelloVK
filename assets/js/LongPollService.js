@@ -51,6 +51,7 @@ function getLongPollHistory(ts) {
 				} else if (responseCode === Action.FRIEND_BECAME_OFFLINE) {
 					friendOnlineChanged(-update[1], Status.OFFLINE);
 				} else if (responseCode === Action.MESSAGE_ADDED) {
+					
 					var newDialogs = app.dialogsService.dialogs.slice();
 					var userId = update[3];
 					
@@ -108,7 +109,7 @@ function friendOnlineChanged(userId, status) {
 	app.friendsService.setFriends(newFriendsList);
 }
 
-function init(store, _app) {
-	Http.init(store);
+function init(_app) {
 	app = _app;
+	Http.init(app.http.accessToken, app.http.userId, app.http.apiVersion);
 }
