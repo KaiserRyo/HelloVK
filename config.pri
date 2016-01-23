@@ -69,6 +69,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/js/VKService.js) \
         $$quote($$BASEDIR/assets/json/friends.json) \
         $$quote($$BASEDIR/assets/main.qml) \
+        $$quote($$BASEDIR/assets/pages/Dialog.qml) \
         $$quote($$BASEDIR/assets/pages/Dialogs.qml) \
         $$quote($$BASEDIR/assets/pages/FriendInfo.qml) \
         $$quote($$BASEDIR/assets/pages/Friends.qml) \

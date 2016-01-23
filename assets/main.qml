@@ -79,7 +79,6 @@ NavigationPane {
                 _app.http.init(accessToken, userId, apiVersion);
                 VKService.initService(_app);
                 vkServiceInitialized();
-                console.debug("VK SERVICE INITIALIZED");
             }
         },
         ComponentDefinition {
@@ -98,7 +97,20 @@ NavigationPane {
         },
         ComponentDefinition {
             id: dialogsPage
-            Dialogs {}
+            Dialogs {
+                onLoadDialog: {
+                    VKService.messages.getHistory(dialog.user.id, function(response) {
+                        navigationPane.push(dialogPage.createObject());
+                        dialogLoaded();    
+                    });
+                }
+            }
+        },
+        ComponentDefinition {
+            id: dialogPage
+            Dialog {
+                
+            }
         },
         SplashScreen {
             id: splashScreen

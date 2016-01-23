@@ -1,5 +1,5 @@
 1
-51
+52
 img/ca_browser.png
 img/ca_contacts.png
 img/ca_device.png
@@ -45,6 +45,7 @@ pages/components/SearchTitleBar.qml
 pages/controls/BigDivider.qml
 pages/controls/MainDivider.qml
 pages/controls/Subtitle.qml
+pages/Dialog.qml
 pages/Dialogs.qml
 pages/FriendInfo.qml
 pages/Friends.qml

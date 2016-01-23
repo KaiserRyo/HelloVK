@@ -4,7 +4,7 @@
 <context>
     <name>DialogListItem</name>
     <message>
-        <location filename="../assets/pages/components/DialogListItem.qml" line="12"/>
+        <location filename="../assets/pages/components/DialogListItem.qml" line="14"/>
         <source> in </source>
         <translation type="unfinished"></translation>
     </message>
@@ -12,27 +12,27 @@
 <context>
     <name>Dialogs</name>
     <message>
-        <location filename="../assets/pages/Dialogs.qml" line="68"/>
+        <location filename="../assets/pages/Dialogs.qml" line="80"/>
         <source>This action cannot be undone. Continue?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/Dialogs.qml" line="101"/>
+        <location filename="../assets/pages/Dialogs.qml" line="116"/>
         <source>All dialogs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/Dialogs.qml" line="110"/>
+        <location filename="../assets/pages/Dialogs.qml" line="125"/>
         <source>Search</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/Dialogs.qml" line="121"/>
+        <location filename="../assets/pages/Dialogs.qml" line="136"/>
         <source>Unread dialogs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/Dialogs.qml" line="134"/>
+        <location filename="../assets/pages/Dialogs.qml" line="149"/>
         <source>Dialogs</source>
         <translation type="unfinished"></translation>
     </message>

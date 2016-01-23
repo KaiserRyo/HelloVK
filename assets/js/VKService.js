@@ -19,7 +19,7 @@ function getUrl(method) {
 }
 
 function post(method, params, callback) {
-	Http.post(getUrl(method), {}, callback);
+	Http.post(getUrl(method), params, callback);
 }
 
 function get(method, params, callback) {
@@ -50,7 +50,15 @@ var users = {
 
 var messages = {
 	deleteDialog: function deleteDialog(userId, callback) {
+		console.debug("user ID dialog to delete: " + userId);
 		post("messages.deleteDialog", {user_id: userId}, function(response) {
+			callback(JSON.parse(response).response);
+		});
+	},
+	
+	getHistory: function getHistory(userId, callback) {
+		get("messages.getHistory", {user_id: userId, count: 200, rev: 1}, function(response) {
+			console.debug(response);
 			callback(JSON.parse(response).response);
 		});
 	}

@@ -5,6 +5,10 @@ var Http = {
 		apiVersion: '',
 
 		request: function request(httpMethod, url, paramsStr, onSuccess, onError) {
+			console.debug('request: ' + httpMethod);
+			console.debug('url: ' + url);
+			console.debug('params: ' + paramsStr);
+			
 			var _req = new XMLHttpRequest();
 
 			_req.open(httpMethod, url, true);
@@ -31,7 +35,11 @@ var Http = {
 			var data = paramsObj ? paramsObj : {};
 			
 			data.access_token = this.accessToken;
-			data.user_id = this.userId;
+			
+			if (!data.hasOwnProperty('user_id')) {
+				data.user_id = this.userId;
+			}
+			
 			data.v = this.apiVersion;
 			
 			var strinigfiedParams = '';

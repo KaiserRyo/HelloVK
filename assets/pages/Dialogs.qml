@@ -11,9 +11,13 @@ Page {
 
     property bool sortedByUnreadMode: false
     
+    signal loadDialog(variant dialog)
+    signal dialogLoaded
+    
     function cleanup() {
         _app.dialogsService.dialogUpdated.disconnect(dialogsPage.dialogUpdated);
         _app.dialogsService.dialogAdded.disconnect(dialogsPage.dialogAdded);
+        _app.dialogsService.dialogDeleted.disconnect(dialogsPage.dialogDeleted);
     }
 
     function getDialogs() {
@@ -32,6 +36,17 @@ Page {
     function dialogAdded(dialog) {
         dialogsArray.insert(0, dialog);
     }
+    
+    function dialogDeleted(dialog) {
+        VKService.initService(_app);
+        VKService.messages.deleteDialog(dialog.user.id, function(responseCode) {
+            if (responseCode === 1) {
+                dialogsArray.removeAt(dialogsArray.indexOf(dialog))
+                _app.dialogsService.setDialogs(DialogsService.deleteDialog(_app.dialogsService.dialogs, dialog));
+                _app.dialogsService.setCount(--_app.dialogsService.count);
+            }
+        });
+    }
         
     titleBar: defaultTitleBar
     actionBarAutoHideBehavior: ActionBarAutoHideBehavior.HideOnScroll
@@ -44,17 +59,14 @@ Page {
         dataModel: ArrayDataModel {
             id: dialogsArray
         }
-        
-        onCreationCompleted: {
-            VKService.initService(_app);
-        }
-        
+                
         listItemComponents: [
             ListItemComponent {
                 type: ""
                 DialogListItem {
-                    id: dialogListItem
                     dialog: ListItemData
+                    loading: ListItem.selected
+                    
                     contextActions: [
                         ActionSet {
                             DeleteActionItem {
@@ -69,15 +81,7 @@ Page {
                                         
                                         onFinished: {
                                             if (value === SystemUiResult.ConfirmButtonSelection) {
-                                                var dialog = ListItemData;
-                                                VKService.messages.deleteDialog(dialog.user.id, function(responseCode) {
-                                                    if (responseCode === 1) {
-                                                        var dataModel = dialogListItem.ListItem.view.dataModel;
-                                                        dataModel.removeAt(dataModel.indexOf(dialog));
-                                                        _app.dialogsService.setDialogs(DialogsService.deleteDialog(_app.dialogsService.dialogs, dialog));
-                                                        _app.dialogsService.setCount(--_app.dialogsService.count);
-                                                    }
-                                                });
+                                                _app.dialogsService.dialogDeleted(ListItemData);
                                             }
                                         }
                                     }
@@ -87,13 +91,24 @@ Page {
                     ]
                 }
             }
-        ]    
+        ] 
+        
+        onTriggered: {
+            dialogsList.clearSelection();
+            dialogsList.toggleSelection(indexPath);
+            loadDialog(dialogsArray.data(indexPath));
+        }   
     }
 
     onCreationCompleted: {
         DialogsService.fillDialogsList(dialogsArray, getDialogs());
         _app.dialogsService.dialogUpdated.connect(dialogsPage.dialogUpdated);
         _app.dialogsService.dialogAdded.connect(dialogsPage.dialogAdded);
+        _app.dialogsService.dialogDeleted.connect(dialogsPage.dialogDeleted);
+    }
+    
+    onDialogLoaded: {
+        dialogsList.clearSelection();
     }
 
     actions: [

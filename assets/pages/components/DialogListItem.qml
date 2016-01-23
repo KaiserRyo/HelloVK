@@ -7,6 +7,8 @@ CustomListItem {
         unread: 52, user: {first_name: 'Denis', last_name: 'Demianov', online: 1, 
             last_seen: {time : 1452962381}}};
     
+    property bool loading: false
+    
     function getDate() {
         var date = new Date(dialog.message.date * 1000);
         return Qt.formatDate(date, "dd MMM yyyy") + qsTr(" in ") + Qt.formatTime(date, "HH:mm");
@@ -61,6 +63,14 @@ CustomListItem {
                     
                     verticalAlignment: VerticalAlignment.Center
                 }
+                Container {
+                    topPadding: ui.du(0.5)
+                    leftPadding: ui.du(1)
+                    ActivityIndicator {
+                        id: dialogLoadingIndicator
+                        running: listItem.loading
+                    }
+                }
             }
             Container {
                 layout: StackLayout {}
@@ -82,4 +92,8 @@ CustomListItem {
             }
         }
     }   
+    
+    onTouch: {
+        
+    }
 }
