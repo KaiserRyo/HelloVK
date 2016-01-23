@@ -15,6 +15,28 @@ Page {
     
     function cleanup() {}
     
+    function fill() {
+        messagesContainer.removeAll();
+        var messages = [];
+        var from = 0;
+        var messageObj = undefined;
+        dialog.messages.forEach(function(m) {
+            if (from === 0) {
+                from = m.from_id;
+                messageObj = userMessage.createObject();
+            }
+            if (from !== m.from_id) {
+                messageObj.user = dialog.user;
+                messageObj.messages = messages;
+                messagesContainer.add(messageObj);
+                messageObj = userMessage.createObject();
+                messages = [];
+            } else {
+                messages.push(m);
+            }
+        });
+    }
+    
     titleBar: UserTitleBar {
         user: dialog.user
     }
@@ -22,7 +44,7 @@ Page {
     actionBarAutoHideBehavior: ActionBarAutoHideBehavior.HideOnScroll
     
     Container {
-        background: Color.create("#fff6ffff")
+        background: Color.create("#ffc3daff")
         ScrollView {
             id: messagesScrollView
             scrollRole: ScrollRole.Main
@@ -34,25 +56,11 @@ Page {
     }
     
     onDialogChanged: {
-        messagesContainer.removeAll();
-        dialog.messages.forEach(function(m) {
-            var messageObj = userMessage.createObject();
-            messageObj.user = dialog.user;
-            var d = dialog;
-            var u = dialog.user;
-            messageObj.message = m;
-            messagesContainer.add(messageObj);
-        });
+        fill();
     }
     
     onCreationCompleted: {
-        messagesContainer.removeAll();
-        dialog.messages.forEach(function(m) {
-                var messageObj = userMessage.createObject();
-                messageObj.user = dialog.user;
-                messageObj.message = m;
-                messagesContainer.add(messageObj);
-        });
+        fill();
     }
     
     attachedObjects: [

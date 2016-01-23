@@ -89,7 +89,8 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/pages/components/UserTitleBar.qml) \
         $$quote($$BASEDIR/assets/pages/controls/BigDivider.qml) \
         $$quote($$BASEDIR/assets/pages/controls/MainDivider.qml) \
-        $$quote($$BASEDIR/assets/pages/controls/Subtitle.qml)
+        $$quote($$BASEDIR/assets/pages/controls/Subtitle.qml) \
+        $$quote($$BASEDIR/assets/pages/controls/UserMessageDivider.qml)
 }
 
 config_pri_source_group1 {
