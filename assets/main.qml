@@ -99,8 +99,12 @@ NavigationPane {
             id: dialogsPage
             Dialogs {
                 onLoadDialog: {
-                    VKService.messages.getHistory(dialog.user.id, function(response) {
-                        navigationPane.push(dialogPage.createObject());
+                    var d = dialog;
+                    VKService.messages.getHistory(d.user.id, function(response) {
+                        d.messages = response.items;
+                        var dialogPageObj = dialogPage.createObject();
+                        dialogPageObj.dialog = d;
+                        navigationPane.push(dialogPageObj);
                         dialogLoaded();    
                     });
                 }

@@ -85,6 +85,8 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/pages/components/DialogListItem.qml) \
         $$quote($$BASEDIR/assets/pages/components/FriendListItem.qml) \
         $$quote($$BASEDIR/assets/pages/components/SearchTitleBar.qml) \
+        $$quote($$BASEDIR/assets/pages/components/UserMessage.qml) \
+        $$quote($$BASEDIR/assets/pages/components/UserTitleBar.qml) \
         $$quote($$BASEDIR/assets/pages/controls/BigDivider.qml) \
         $$quote($$BASEDIR/assets/pages/controls/MainDivider.qml) \
         $$quote($$BASEDIR/assets/pages/controls/Subtitle.qml)

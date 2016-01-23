@@ -46,9 +46,5 @@ TitleBar {
                 }
             }            
         }
-    }
-    
-    onCreationCompleted: {
-        console.debug("search title created");
-    }
+    }    
 }
