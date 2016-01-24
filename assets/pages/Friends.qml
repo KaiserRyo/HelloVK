@@ -115,4 +115,5 @@ Page {
             }
         }
     ]
+    actionBarFollowKeyboardPolicy: ActionBarFollowKeyboardPolicy.Never
 }

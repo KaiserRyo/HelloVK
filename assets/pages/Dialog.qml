@@ -23,17 +23,30 @@ Page {
         dialog.messages.forEach(function(m) {
             if (from === 0) {
                 from = m.from_id;
-                messageObj = userMessage.createObject();
+                
+                if (from === _app.userService.user.id) {
+                    messageObj = ownMessage.createObject();
+                } else {
+                    messageObj = userMessage.createObject();
+                }
+                
             }
             if (from !== m.from_id) {
-                messageObj.user = dialog.user;
+                messageObj.user = from === _app.userService.user.id ? _app.userService.user : dialog.user;
                 messageObj.messages = messages;
                 messagesContainer.add(messageObj);
-                messageObj = userMessage.createObject();
+                
+                from = m.from_id;
+                
+                if (from === _app.userService.user.id) {
+                    messageObj = ownMessage.createObject();
+                } else {
+                    messageObj = userMessage.createObject();
+                }
+                
                 messages = [];
-            } else {
-                messages.push(m);
-            }
+            } 
+            messages.push(m);                
         });
     }
     
@@ -49,9 +62,7 @@ Page {
             id: messagesScrollView
             scrollRole: ScrollRole.Main
             
-            Container {
-                id: messagesContainer
-            }
+            Container { id: messagesContainer }
         }
     }
     
@@ -64,9 +75,7 @@ Page {
     }
     
     attachedObjects: [
-        ComponentDefinition {
-            id: userMessage
-            UserMessage {}
-        }
+        ComponentDefinition { id: userMessage; UserMessage {} },
+        ComponentDefinition { id: ownMessage; OwnMessage {} }
     ]
 }

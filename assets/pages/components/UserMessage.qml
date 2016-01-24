@@ -5,8 +5,10 @@ import "../controls"
 Container {
     
     property variant user: {first_name: "Mikhail", last_name: "Chachkouski"}
-    property variant messages: [{date: 1452962381, body: "Privet! Privet! Privet! Privet! Privet! Privet! Privet! Privet! Privet!"}, 
-                                {date: 1452962400, body: "Hey ho!!"}]
+    property variant messages: [
+        {date: 1452962381, read_state: 1, body: "Privet! Privet! Privet! Privet! Privet! Privet! Privet! Privet! Privet!"}, 
+        {date: 1452962400, read_state: 0, body: "Hey ho!!"}
+    ]
     
     function getDate() {
         var date = new Date(messages[messages.length - 1].date * 1000);
@@ -16,9 +18,10 @@ Container {
     function fill() {
         messagesContainer.removeAll();
         messages.forEach(function(m) {
-                var singleMessageObj = singleMessage.createObject();
-                singleMessageObj.body = m.body;
-                messagesContainer.add(singleMessageObj);
+            var singleMessageObj = singleMessage.createObject();
+            singleMessageObj.readState = m.read_state === 1;
+            singleMessageObj.body = m.body;
+            messagesContainer.add(singleMessageObj);
         });
     }
     
@@ -26,12 +29,12 @@ Container {
         orientation: LayoutOrientation.LeftToRight
     }  
     
-    topMargin: ui.du(1)
-    rightMargin: ui.du(1)
-    bottomMargin: ui.du(1)  
+    topMargin: ui.du(1.5)
+    bottomMargin: ui.du(1.5)
+    
+    background: Color.create("#ffc3daff")
     
     Container {
-        background: Color.create("#ffc3daff")
         layoutProperties: StackLayoutProperties {
             spaceQuota: 1
         }        
@@ -59,7 +62,6 @@ Container {
                 textStyle.fontWeight: FontWeight.Bold
             }
             Container {
-                id: hhh
                 background: Color.White
                 bottomPadding: ui.du(1)
                 
@@ -101,24 +103,7 @@ Container {
     attachedObjects: [
         ComponentDefinition {
             id: singleMessage
-            Container {
-                property string body
-                
-                layout: StackLayout {
-                    orientation: LayoutOrientation.LeftToRight
-                }
-                
-                ImageView {
-                    imageSource: "asset:///img/grey_pellet.png" 
-                }
-                Label {
-                    layoutProperties: StackLayoutProperties {
-                        spaceQuota: 1
-                    }
-                    text: body
-                    multiline: true 
-                }
-            }
+            SingleMessage {}
         }
     ]    
 }

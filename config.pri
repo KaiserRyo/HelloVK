@@ -84,11 +84,15 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/pages/components/ContactSmsContainer.qml) \
         $$quote($$BASEDIR/assets/pages/components/DialogListItem.qml) \
         $$quote($$BASEDIR/assets/pages/components/FriendListItem.qml) \
+        $$quote($$BASEDIR/assets/pages/components/OwnMessage.qml) \
         $$quote($$BASEDIR/assets/pages/components/SearchTitleBar.qml) \
+        $$quote($$BASEDIR/assets/pages/components/SingleMessage.qml) \
         $$quote($$BASEDIR/assets/pages/components/UserMessage.qml) \
         $$quote($$BASEDIR/assets/pages/components/UserTitleBar.qml) \
         $$quote($$BASEDIR/assets/pages/controls/BigDivider.qml) \
         $$quote($$BASEDIR/assets/pages/controls/MainDivider.qml) \
+        $$quote($$BASEDIR/assets/pages/controls/MessageDivider.qml) \
+        $$quote($$BASEDIR/assets/pages/controls/OwnMessageDivider.qml) \
         $$quote($$BASEDIR/assets/pages/controls/Subtitle.qml) \
         $$quote($$BASEDIR/assets/pages/controls/UserMessageDivider.qml)
 }
@@ -98,6 +102,7 @@ config_pri_source_group1 {
         $$quote($$BASEDIR/src/DialogsService.cpp) \
         $$quote($$BASEDIR/src/FriendsService.cpp) \
         $$quote($$BASEDIR/src/Http.cpp) \
+        $$quote($$BASEDIR/src/UserService.cpp) \
         $$quote($$BASEDIR/src/applicationui.cpp) \
         $$quote($$BASEDIR/src/main.cpp)
 
@@ -105,6 +110,7 @@ config_pri_source_group1 {
         $$quote($$BASEDIR/src/DialogsService.hpp) \
         $$quote($$BASEDIR/src/FriendsService.hpp) \
         $$quote($$BASEDIR/src/Http.hpp) \
+        $$quote($$BASEDIR/src/UserService.hpp) \
         $$quote($$BASEDIR/src/applicationui.hpp)
 }
 

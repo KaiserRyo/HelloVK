@@ -29,8 +29,10 @@ ApplicationUI::ApplicationUI() :
     // prepare the localization
     m_pTranslator = new QTranslator(this);
     m_pLocaleHandler = new LocaleHandler(this);
+
     m_friendsService = new FriendsService(this);
     m_dialogsService = new DialogsService(this);
+    m_userService = new UserService(this);
     m_http = new Http(this);
 
     bool res = QObject::connect(m_pLocaleHandler, SIGNAL(systemLanguageChanged()), this, SLOT(onSystemLanguageChanged()));
@@ -75,6 +77,10 @@ FriendsService* ApplicationUI::friendsService() {
 
 DialogsService* ApplicationUI::dialogsService() {
     return m_dialogsService;
+}
+
+UserService* ApplicationUI::userService() {
+    return m_userService;
 }
 
 Http* ApplicationUI::http() {

@@ -139,6 +139,7 @@ NavigationPane {
         vkAuth.close();
         splashScreen.open();
         VKService.loadData(function(data) {
+            _app.userService.setUser(data.user);
             firstPage.titleBar.title = data.user.first_name + ' ' + data.user.last_name;
             avatar.url = data.user.photo_400_orig;
             dataLoaded(data);
