@@ -1,5 +1,5 @@
 1
-61
+59
 img/ca_browser.png
 img/ca_contacts.png
 img/ca_device.png
@@ -42,11 +42,9 @@ pages/components/ContactSmsContainer.qml
 pages/components/DialogListItem.qml
 pages/components/FriendListItem.qml
 pages/components/OwnMessage.qml
-pages/components/OwnMessageListItem.qml
 pages/components/SearchTitleBar.qml
 pages/components/SingleMessage.qml
 pages/components/UserMessage.qml
-pages/components/UserMessageListItem.qml
 pages/components/UserTitleBar.qml
 pages/controls/BigDivider.qml
 pages/controls/MainDivider.qml

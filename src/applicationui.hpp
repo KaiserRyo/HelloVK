@@ -22,6 +22,7 @@
 #include "DialogsService.hpp"
 #include "UserService.hpp"
 #include "Http.hpp"
+#include "UIManager.hpp"
 
 namespace bb
 {
@@ -45,6 +46,7 @@ class ApplicationUI : public QObject
     Q_PROPERTY(DialogsService* dialogsService READ dialogsService CONSTANT)
     Q_PROPERTY(UserService* userService READ userService CONSTANT)
     Q_PROPERTY(Http* http READ http CONSTANT)
+    Q_PROPERTY(UIManager* uiManager READ uiManager CONSTANT)
 public:
     ApplicationUI();
     virtual ~ApplicationUI() {}
@@ -64,6 +66,9 @@ private:
 
     Http* http();
     Http* m_http;
+
+    UIManager* uiManager();
+    UIManager* m_uiManager;
 };
 
 #endif /* ApplicationUI_HPP_ */

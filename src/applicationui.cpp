@@ -34,6 +34,7 @@ ApplicationUI::ApplicationUI() :
     m_dialogsService = new DialogsService(this);
     m_userService = new UserService(this);
     m_http = new Http(this);
+    m_uiManager = new UIManager(this);
 
     bool res = QObject::connect(m_pLocaleHandler, SIGNAL(systemLanguageChanged()), this, SLOT(onSystemLanguageChanged()));
     // This is only available in Debug builds
@@ -85,4 +86,8 @@ UserService* ApplicationUI::userService() {
 
 Http* ApplicationUI::http() {
     return m_http;
+}
+
+UIManager* ApplicationUI::uiManager() {
+    return m_uiManager;
 }

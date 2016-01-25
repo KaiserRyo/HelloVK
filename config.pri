@@ -102,6 +102,7 @@ config_pri_source_group1 {
         $$quote($$BASEDIR/src/DialogsService.cpp) \
         $$quote($$BASEDIR/src/FriendsService.cpp) \
         $$quote($$BASEDIR/src/Http.cpp) \
+        $$quote($$BASEDIR/src/UIManager.cpp) \
         $$quote($$BASEDIR/src/UserService.cpp) \
         $$quote($$BASEDIR/src/applicationui.cpp) \
         $$quote($$BASEDIR/src/main.cpp)
@@ -110,6 +111,7 @@ config_pri_source_group1 {
         $$quote($$BASEDIR/src/DialogsService.hpp) \
         $$quote($$BASEDIR/src/FriendsService.hpp) \
         $$quote($$BASEDIR/src/Http.hpp) \
+        $$quote($$BASEDIR/src/UIManager.hpp) \
         $$quote($$BASEDIR/src/UserService.hpp) \
         $$quote($$BASEDIR/src/applicationui.hpp)
 }
