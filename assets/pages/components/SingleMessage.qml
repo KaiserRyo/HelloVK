@@ -19,5 +19,6 @@ Container {
         }
         text: body
         multiline: true 
+        textFormat: TextFormat.Html
     }
 }

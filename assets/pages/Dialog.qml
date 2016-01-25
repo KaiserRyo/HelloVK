@@ -20,34 +20,32 @@ Page {
         var messages = [];
         var from = 0;
         var messageObj = undefined;
-        dialog.messages.forEach(function(m) {
+        dialog.messages.forEach(function(m, index) {
             if (from === 0) {
                 from = m.from_id;
-                
-                if (from === _app.userService.user.id) {
-                    messageObj = ownMessage.createObject();
-                } else {
-                    messageObj = userMessage.createObject();
-                }
-                
+                messageObj = createMessageObject(from);                
             }
             if (from !== m.from_id) {
-                messageObj.user = from === _app.userService.user.id ? _app.userService.user : dialog.user;
+                messageObj.user = getMessageUser(from);
+
                 messageObj.messages = messages;
                 messagesContainer.add(messageObj);
                 
                 from = m.from_id;
                 
-                if (from === _app.userService.user.id) {
-                    messageObj = ownMessage.createObject();
-                } else {
-                    messageObj = userMessage.createObject();
-                }
-                
+                messageObj = createMessageObject(from);
                 messages = [];
             } 
-            messages.push(m);                
+            messages.push(m);
         });
+    }
+    
+    function createMessageObject(from) {
+        return from === _app.userService.user.id ? ownMessage.createObject() : userMessage.createObject();
+    }
+    
+    function getMessageUser(from) {
+        return from === _app.userService.user.id ? _app.userService.user : dialog.user;
     }
     
     titleBar: UserTitleBar {
@@ -58,11 +56,33 @@ Page {
     
     Container {
         background: Color.create("#ffc3daff")
+        
+        Container {
+            minHeight: ui.du(1)
+        }
+        
         ScrollView {
             id: messagesScrollView
             scrollRole: ScrollRole.Main
+            scrollViewProperties {
+                scrollMode: ScrollMode.Vertical
+                overScrollEffectMode: OverScrollEffectMode.None
+                pinchToZoomEnabled: true
+            }
+
+            verticalAlignment: VerticalAlignment.Center
             
-            Container { id: messagesContainer }
+            Container { 
+                id: messagesContainer
+                
+                onControlAdded: {
+                    messagesScrollView.scrollToPoint(0, messagesContainer.count() * 1500);
+                }
+            }
+        }
+        
+        Container {
+            minHeight: ui.du(1)
         }
     }
     

@@ -92,6 +92,10 @@ Container {
         }
     }
     
+    Container {
+        minWidth: ui.du(1)
+    }
+    
     onCreationCompleted: {
         fill();
     }

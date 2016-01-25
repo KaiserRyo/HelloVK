@@ -35,6 +35,10 @@ Container {
     background: Color.create("#ffc3daff")
     
     Container {
+        minWidth: ui.du(1)
+    }
+    
+    Container {
         layout: StackLayout {
             orientation: LayoutOrientation.TopToBottom
         }

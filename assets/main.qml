@@ -100,13 +100,20 @@ NavigationPane {
             Dialogs {
                 onLoadDialog: {
                     var d = dialog;
-                    VKService.messages.getHistory(d.user.id, function(response) {
-                        d.messages = response.items;
+                    if (!d.messages) {
+                        VKService.messages.getHistory(d.user.id, function(response) {
+                                d.messages = response.items;
+                                var dialogPageObj = dialogPage.createObject();
+                                dialogPageObj.dialog = d;
+                                navigationPane.push(dialogPageObj);
+                                dialogLoaded();    
+                        });
+                    } else {
                         var dialogPageObj = dialogPage.createObject();
                         dialogPageObj.dialog = d;
                         navigationPane.push(dialogPageObj);
-                        dialogLoaded();    
-                    });
+                        dialogLoaded();
+                    }
                 }
             }
         },
