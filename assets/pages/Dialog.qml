@@ -89,10 +89,13 @@ Page {
     onDialogChanged: {
         fill();
     }
-    
-    onCreationCompleted: {
-        fill();
-    }
+        
+    actions: [
+        TextInputActionItem {
+            hintText: qsTr("Enter text")
+            textFormat: TextFormat.Plain
+        }
+    ]
     
     attachedObjects: [
         ComponentDefinition { id: userMessage; UserMessage {} },

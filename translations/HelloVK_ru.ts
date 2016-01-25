@@ -2,6 +2,14 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="ru_RU">
 <context>
+    <name>Dialog</name>
+    <message>
+        <location filename="../assets/pages/Dialog.qml" line="95"/>
+        <source>Enter text</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>DialogListItem</name>
     <message>
         <location filename="../assets/pages/components/DialogListItem.qml" line="14"/>
