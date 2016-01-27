@@ -1,3 +1,5 @@
+"use strict";
+
 Qt.include("Http.js");
 
 var app;
@@ -50,7 +52,6 @@ var users = {
 
 var messages = {
 	deleteDialog: function deleteDialog(userId, callback) {
-		console.debug("user ID dialog to delete: " + userId);
 		post("messages.deleteDialog", {user_id: userId}, function(response) {
 			callback(JSON.parse(response).response);
 		});
@@ -58,6 +59,12 @@ var messages = {
 	
 	getHistory: function getHistory(userId, callback) {
 		get("messages.getHistory", {user_id: userId, count: 200, rev: 1}, function(response) {
+			callback(JSON.parse(response).response);
+		});
+	},
+	
+	send: function send(userId, message, callback) {
+		post("messages.send", {user_id: userId, message: message}, function(response) {
 			console.debug(response);
 			callback(JSON.parse(response).response);
 		});

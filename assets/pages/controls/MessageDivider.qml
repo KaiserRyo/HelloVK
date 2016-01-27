@@ -5,5 +5,6 @@ Container {
     
     horizontalAlignment: HorizontalAlignment.Fill
     background: Color.create(color)
-    topPadding: ui.du(0.25)
+    minHeight: ui.du(0.5)
+    preferredHeight: ui.du(0.5)
 }

@@ -36,9 +36,8 @@ CustomListItem {
                     Label {
                         id: title
                         text: dialog.message.chat_id ? dialog.message.title : dialog.user.first_name + " " + dialog.user.last_name
-                        textStyle.base: {
-                            SystemDefaults.TextStyles.TitleText
-                        }
+                        textStyle.base: SystemDefaults.TextStyles.TitleText
+                        textStyle.fontWeight: FontWeight.W400
                     }                    
                     verticalAlignment: VerticalAlignment.Center
                 }
@@ -83,8 +82,7 @@ CustomListItem {
                 Label {
                     id: messageLabel
                     text: dialog.message.body
-                    textStyle.base: SystemDefaults.TextStyles.BodyText
-                    textStyle.color: Color.Gray
+                    textStyle.fontWeight: FontWeight.W200
                     verticalAlignment: VerticalAlignment.Center
                     multiline: true
                     autoSize.maxLineCount: 10
@@ -92,8 +90,4 @@ CustomListItem {
             }
         }
     }   
-    
-    onTouch: {
-        
-    }
 }

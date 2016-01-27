@@ -4,7 +4,7 @@
 <context>
     <name>Dialog</name>
     <message>
-        <location filename="../assets/pages/Dialog.qml" line="95"/>
+        <location filename="../assets/pages/Dialog.qml" line="121"/>
         <source>Enter text</source>
         <translation type="unfinished"></translation>
     </message>
@@ -92,7 +92,7 @@
 <context>
     <name>FriendsService</name>
     <message>
-        <location filename="../assets/js/FriendsService.js" line="79"/>
+        <location filename="../assets/js/FriendsService.js" line="81"/>
         <source> in </source>
         <translation type="unfinished"></translation>
     </message>

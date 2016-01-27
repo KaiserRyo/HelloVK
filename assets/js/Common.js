@@ -1,3 +1,5 @@
+'use strict';
+
 function startsWith(sourceString, searchString) {
 	return sourceString.toLowerCase().lastIndexOf(searchString.toLowerCase(), 0) === 0;
 }
@@ -7,7 +9,6 @@ function contains(str, regex) {
 }
 
 function assign(target, firstSource) {
-	'use strict';
 	if (target === undefined || target === null) {
 		throw new TypeError('Cannot convert first argument to object');
 	}
@@ -30,3 +31,7 @@ function assign(target, firstSource) {
 	}
 	return to;
 };
+
+function isPropExists(obj, propName) {
+    return obj.hasOwnProperty(propName) && obj[propName] !== "";
+}

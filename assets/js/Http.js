@@ -1,3 +1,5 @@
+"use strict";
+
 var Http = {
 		vkApiUrl: 'https://api.vk.com/method',
 		accessToken: '',

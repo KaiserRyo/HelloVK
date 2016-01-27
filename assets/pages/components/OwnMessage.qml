@@ -6,13 +6,13 @@ Container {
     
     property variant user: {first_name: "Mikhail", last_name: "Chachkouski"}
     property variant messages: [
-        {date: 1452962381, read_state: 1, body: "Privet! Privet! Privet! Privet! Privet! Privet! Privet! Privet! Privet!"}, 
+        {date: 1452962381, read_state: 1, body: "Privet! sdsdfsdf sdfsdf sdfsdfsdf sdfsdfsdfsdf s sdfsdfwersdfsdfwer Privet! Privet! Privet! Privet! Privet! Privet! Privet! Privet!"}, 
         {date: 1452962400, read_state: 0, body: "Hey ho!!"}
-    ]
+        ]
     
     function getDate() {
         var date = new Date(messages[messages.length - 1].date * 1000);
-        return Qt.formatDate(date, "ddd ") + Qt.formatTime(date, "HH:mm");
+        return Qt.formatDate(date, "dd MMM yyyy ") + Qt.formatTime(date, "HH:mm");
     }
     
     function fill() {
@@ -32,7 +32,7 @@ Container {
     topMargin: ui.du(1.5)
     bottomMargin: ui.du(1.5)
     
-    background: Color.create("#ffc3daff")
+    background: Color.create(_app.uiManager.dialogBg)
     
     Container {
         minWidth: ui.du(1)
@@ -81,7 +81,7 @@ Container {
                     }
                     Container {
                         background: Color.White
-                        bottomPadding: ui.du(1)
+                        topPadding: ui.du(0.8)
                         
                         horizontalAlignment: HorizontalAlignment.Right
                         
@@ -90,8 +90,7 @@ Container {
                         }
                         Label {
                             text: getDate()
-                            textStyle.base: SystemDefaults.TextStyles.SubtitleText
-                            verticalAlignment: VerticalAlignment.Center
+                            textStyle.base: SystemDefaults.TextStyles.SmallText
                         }
                     }    
                 }
@@ -113,11 +112,11 @@ Container {
         }        
     }
     
-    onCreationCompleted: {
+    onMessagesChanged: {
         fill();
     }
     
-    onMessagesChanged: {
+    onCreationCompleted: {
         fill();
     }
     

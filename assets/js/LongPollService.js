@@ -1,3 +1,5 @@
+"use strict";
+
 Qt.include("Http.js");
 Qt.include("FriendsService.js");
 Qt.include("DialogsService.js");
@@ -15,6 +17,10 @@ var Action = {
 	FRIEND_BECAME_ONLINE: 8,
 	FRIEND_BECAME_OFFLINE: 9,
 	MESSAGE_ADDED: 4
+};
+
+var Flag = {
+	MESSAGE_BY_CURR_USER: 35
 };
 
 function start() {
@@ -53,38 +59,27 @@ function getLongPollHistory(ts) {
 				} else if (responseCode === Action.MESSAGE_ADDED) {
 					
 					var newDialogs = app.dialogsService.dialogs.slice();
+					var fromCurrUser = update[2] === Flag.MESSAGE_BY_CURR_USER;
 					var userId = update[3];
 					
 					var dialog = findByUserId(newDialogs, userId);
 					
 					if (dialog) {
-						app.dialogsService.dialogUpdated(updateDialogByUser(dialog, update));
+						dialog = updateDialogByUser(dialog, fromCurrUser, update[1], update[4], update[5], update[6], update[7]);
+						
+						app.dialogsService.dialogUpdated(dialog);
 						app.dialogsService.setDialogs(newDialogs);
 					} else {
 						var friend = findUserById(app.friendsService.friends, userId);
 						if (friend) {
-							dialog = {};
-							dialog.user = friend;
-							dialog.unread = 1;
+							dialog = createDialog(friend, fromCurrUser, update[1], update[4], update[5], update[6], update[7]);
 							
-							var message = {};
-							message.id = update[1];
-							message.out = 0;
-							message.user_id = friend.id;
-							message.read_state = 0;
-							message.date = update[4];
-							message.title = update[5];
-							message.body = update[6];
-							
-							dialog.message = message;
-							
-//							newDialogs.splice(0, 0, dialog);
 							newDialogs.push(dialog);
 							
+							app.dialogsService.dialogAdded(dialog);
 							app.dialogsService.setDialogs(newDialogs);
 							app.dialogsService.setCount(++app.dialogsService.count);
 							app.dialogsService.setUnreadDialogs(++app.dialogsService.unreadDialogs);
-							app.dialogsService.dialogAdded(dialog);
 						}
 					}
 				}

@@ -1,3 +1,5 @@
+"use strict";
+
 var accessToken = "", userId = "", apiVersion = "";
 
 function init(_accessToken, _userId, _apiVersion) {

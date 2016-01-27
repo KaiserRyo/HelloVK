@@ -1,3 +1,5 @@
+"use strict";
+
 Qt.include("Common.js");
 
 function search(friendsList, textParts) {
@@ -85,8 +87,4 @@ function getCity(friend) {
 
 function getProp(friend, propName) {
 	return isPropExists(friend, propName) ? friend[propName] : "";
-}
-
-function isPropExists(friend, propName) {
-    return friend.hasOwnProperty(propName) && friend[propName] !== "";
 }
