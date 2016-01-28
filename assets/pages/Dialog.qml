@@ -7,8 +7,7 @@ import "/js/DialogsService.js" as DialogsService;
 Page {
     id: dialogPage
     
-    signal messageSent(variant message)
-    signal messageDelivered(int messageId, int tempID)
+//    signal messageSent(variant message)
     
 //    property variant dialog: {user: 
 //        {first_name: "Mikhail", last_name: "Chachkouski"}, messages: [
@@ -21,18 +20,21 @@ Page {
     function cleanup() {}
     
     function fill() {
+        "use strict";
+        
         messagesContainer.removeAll();
         messagesContainer.add(messageDivider.createObject());
         var messages = [];
         var from = 0;
         var messageObj = undefined;
+        var mDate = 0;
         dialog.messages.forEach(function(m, index) {
             if (from === 0) {
                 from = m.from_id;
                 messageObj = createMessageObject(from);   
                 messageObj.user = getMessageUser(from);             
             }
-            if (from !== m.from_id) {
+            if (from !== m.from_id || (from === m.from_id && mDate !== 0 && (m.date - mDate) > 60)) {
                 messageObj.user = getMessageUser(from);
                 messageObj.messages = messages;
                 
@@ -43,6 +45,7 @@ Page {
                 messageObj = createMessageObject(from);
                 messages = [];
             } 
+            mDate = m.date;
             messages.push(m);
         });
         if (messages.length > 0) {
@@ -63,6 +66,60 @@ Page {
     
     function getUser() {
         return dialog ? dialog.user : {};
+    }
+    
+    function messageComponents() {
+        "use strict";
+        var messageComponents = [];
+        for (var i = 0; i < messagesContainer.controls.length; i++) {
+            var messageComponent = messagesContainer.controls[i];
+            if (messageComponent.objectName === "userMessage" || messageComponent.objectName === "ownMessage") {
+                messageComponents.push(messageComponent);
+            }
+        }
+        return messageComponents;
+    }
+    
+    function createAndAddMessageComponent(message) {
+        "use strict";
+        var messageComponent = createMessageObject(message.from_id);
+        messageComponent.user = getMessageUser(message.from_id);
+        messageComponent.messages = [message];
+        messagesContainer.add(messageComponent);
+        return messageComponent;
+    }
+    
+    function updateMessageComponent(messageComponent, message) {
+        "use strict";
+        var newMessages = messageComponent.messages.slice();
+        newMessages.push(message);
+        messageComponent.messages = newMessages;
+        return messageComponent;
+    }
+    
+    function messageSent(message) {
+        "use strict";
+        
+        dialog.messages.push(message);
+        
+        var singleMessage = undefined;
+        var messages = messageComponents();
+        if (messages.length !== 0) {
+            var singleMessage = messages[messages.length - 1];
+            if (singleMessage.user.id === message.from_id) {
+                var lastMessage = singleMessage.messages[singleMessage.messages.length - 1];
+                if ((message.date - lastMessage.date) > 60) {
+                    singleMessage = createAndAddMessageComponent(message);
+                } else {
+                    singleMessage = updateMessageComponent(singleMessage, message);
+                }
+            } else {
+                singleMessage = createAndAddMessageComponent(message);
+            }
+        } else {
+            singleMessage = createAndAddMessageComponent(message);
+        }
+        return singleMessage;
     }
     
     titleBar: UserTitleBar {
@@ -97,24 +154,7 @@ Page {
     onDialogChanged: {
         fill();
     }
-    
-    onMessageSent: {
-        dialogPage.dialog.messages.push(message);
-        
-        var messageObj = createMessageObject(message.from_id);
-        messageObj.user = getMessageUser(message.from_id);
-        messageObj.messages = [message];
-        messagesContainer.add(messageObj);
-    }
-    
-    onMessageDelivered: {
-//        var messageWithTempID = DialogsService.findMessageById(dialog.messages, tempID);
-//        messageWithTempID.id = messageId;
-//        
-//        dialog.message = messageWithTempID;
-//        _app.dialogsService.dialogUpdated(dialog);
-    }
-    
+            
     actions: [
         TextInputActionItem {
             id: messageText
@@ -124,35 +164,32 @@ Page {
                 submitKey: SubmitKey.EnterKey
                 
                 onSubmitted: {
-                    console.debug(messageText.text);
-                    
                     var tempID = Date.now() / 1000;
                     var text = messageText.text;
-                    var newMessage = {
-                        id: tempID,
-                        body: text, 
-                        user_id: dialog.user.id, 
-                        from_id: _app.userService.user.id, 
-                        date: tempID, 
-                        read_state: 0, 
-                    out: 0};
-                    
+                    var newMessage = { id: tempID, body: text, user_id: dialog.user.id, from_id: _app.userService.user.id, date: tempID, read_state: 2, out: 0 };
+                    var singleMessageComponent = messageSent(newMessage);
                     messageText.resetText();
                     
                     VKService.initService(_app);
                     VKService.messages.send(dialog.user.id, text, function(messageId) {
-                        messageDelivered(messageId, tempID);
+                        var newMessages = singleMessageComponent.messages.slice();
+                        var deliveredMessage = DialogsService.findMessageById(newMessages, tempID);
+                        if (deliveredMessage) {
+                            deliveredMessage.id = messageId;
+                            deliveredMessage.read_state = 0;
+                            singleMessageComponent.messages = newMessages;
+                        }
                     });
                     
-                    messageSent(newMessage);
+                    
                 }
             }
         }
     ]
     
     attachedObjects: [
-        ComponentDefinition { id: userMessage; UserMessage {} },
-        ComponentDefinition { id: ownMessage; OwnMessage {} },
-        ComponentDefinition { id: messageDivider; Container { minHeight: ui.du(1) }}
+        ComponentDefinition { id: userMessage; UserMessage { objectName: "userMessage" }},
+        ComponentDefinition { id: ownMessage; OwnMessage { objectName: "ownMessage" }},
+        ComponentDefinition { id: messageDivider; Container { objectName: "messageDivider"; minHeight: ui.du(1) }}
     ]
 }

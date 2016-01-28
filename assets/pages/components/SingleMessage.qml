@@ -1,8 +1,9 @@
 import bb.cascades 1.4
 
 Container {
-    property bool readState: false
+    id: root
     property string body: "Test sfdsdf sdfsdfsdf sdfsdfsdf sdf"
+    property string imageSource: "asset:///img/grey_pellet.png"
     
     layout: StackLayout {
         orientation: LayoutOrientation.LeftToRight
@@ -12,8 +13,7 @@ Container {
     bottomPadding: ui.du(0.5)
     
     ImageView {
-        imageSource: readState ? "asset:///img/grey_pellet.png" : 
-                                 "asset:///img/yellow_pellet.png"
+        imageSource: root.imageSource;
         verticalAlignment: VerticalAlignment.Top
     }
     Label {

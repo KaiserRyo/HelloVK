@@ -65,7 +65,6 @@ var messages = {
 	
 	send: function send(userId, message, callback) {
 		post("messages.send", {user_id: userId, message: message}, function(response) {
-			console.debug(response);
 			callback(JSON.parse(response).response);
 		});
 	}

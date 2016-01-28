@@ -3,23 +3,31 @@ import bb.cascades 1.4
 import "../controls"
 
 Container {
+    id: root
     
     property variant user: {first_name: "Mikhail", last_name: "Chachkouski"}
     property variant messages: [
         {date: 1452962381, read_state: 1, body: "Privet! sdsdfsdf sdfsdf sdfsdfsdf sdfsdfsdfsdf s sdfsdfwersdfsdfwer Privet! Privet! Privet! Privet! Privet! Privet! Privet! Privet!"}, 
         {date: 1452962400, read_state: 0, body: "Hey ho!!"}
-        ]
-    
+    ]
+
     function getDate() {
         var date = new Date(messages[messages.length - 1].date * 1000);
         return Qt.formatDate(date, "dd MMM yyyy ") + Qt.formatTime(date, "HH:mm");
     }
     
+    function statesImages() {
+        return {0: "asset:///img/delivered.png", 
+                1: "asset:///img/read.png", 
+                2: "asset:///img/sent.png"};
+    }
+    
     function fill() {
         messagesContainer.removeAll();
+        var images = statesImages();
         messages.forEach(function(m) {
             var singleMessageObj = singleMessage.createObject();
-            singleMessageObj.readState = m.read_state === 1;
+            singleMessageObj.imageSource = images[m.read_state];
             singleMessageObj.body = m.body;
             messagesContainer.add(singleMessageObj);
         });
