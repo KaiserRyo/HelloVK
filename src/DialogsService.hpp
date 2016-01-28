@@ -36,9 +36,9 @@ signals:
     void unreadDialogsChanged();
     void dialogsChanged();
     void dialogsUsersChanged();
-    void dialogUpdated(const QVariant&);
-    void dialogAdded(const QVariant&);
-    void dialogDeleted(const QVariant&);
+    void dialogUpdated(const QVariant&, const bool);
+    void dialogAdded(const QVariant&, const bool);
+    void dialogDeleted(const QVariant&, const bool);
 
 private:
     int m_count;

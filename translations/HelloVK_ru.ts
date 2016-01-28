@@ -4,7 +4,7 @@
 <context>
     <name>Dialog</name>
     <message>
-        <location filename="../assets/pages/Dialog.qml" line="165"/>
+        <location filename="../assets/pages/Dialog.qml" line="168"/>
         <source>Enter text</source>
         <translation type="unfinished"></translation>
     </message>
@@ -121,17 +121,17 @@
 <context>
     <name>main</name>
     <message>
-        <location filename="../assets/main.qml" line="44"/>
+        <location filename="../assets/main.qml" line="46"/>
         <source>Logging in...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="55"/>
+        <location filename="../assets/main.qml" line="57"/>
         <source>Friends</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="64"/>
+        <location filename="../assets/main.qml" line="66"/>
         <source>Dialogs</source>
         <translation type="unfinished"></translation>
     </message>

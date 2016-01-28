@@ -32,10 +32,12 @@ NavigationPane {
     signal vkServiceInitialized
     signal dataLoaded(variant data)
     
-    function messageRecevied(dialog) {
-        dialogNotification.title = "HelloVK: " + dialog.user.first_name + " " + dialog.user.last_name;
-        dialogNotification.body = dialog.message.body;
-        dialogNotification.notify();
+    function messageRecevied(dialog, fromCurrUser) {
+        if (!fromCurrUser) {
+            dialogNotification.title = "HelloVK: " + dialog.user.first_name + " " + dialog.user.last_name;
+            dialogNotification.body = dialog.message.body;
+            dialogNotification.notify();            
+        }
     }
 
     Page {

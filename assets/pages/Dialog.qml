@@ -116,10 +116,13 @@ Page {
         return singleMessage;
     }
     
-    function messageReceived(updatedDialog) {
-//        if (updatedDialog.user.id === dialog.user.id && dialog.message.from_id !== _app.userService.user.id) {
-//            messageSent(updatedDialog.message);
-//        }
+    function messageReceived(updatedDialog, fromCurrUser) {
+        if (updatedDialog.user.id === dialog.user.id && !fromCurrUser) {
+            var m = updatedDialog.message;
+            var newMessage = { id: m.id, body: m.body, user_id: dialogPage.dialog.user.id, from_id: dialogPage.dialog.user.id, 
+                               date: m.date, read_state: m.read_state, out: m.out };
+            messageSent(newMessage);
+        }
     }
     
     titleBar: UserTitleBar {
@@ -184,8 +187,6 @@ Page {
                             singleMessageComponent.messages = newMessages;
                         }
                     });
-                    
-                    
                 }
             }
         }

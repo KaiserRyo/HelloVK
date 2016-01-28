@@ -49,7 +49,7 @@ CustomListItem {
                         }
                         textStyle.color: Color.White
                     }
-                    visible: dialog.hasOwnProperty("unread");
+                    visible: dialog.hasOwnProperty("unread")
                     background: Color.create("#0092CC")
 
                     leftPadding: ui.du(1)
@@ -73,6 +73,7 @@ CustomListItem {
             }
             Container {
                 layout: StackLayout {}
+                bottomPadding: ui.du(2)
                 Label {
                     text: listItem.getDate();
                     textStyle.base: SystemDefaults.TextStyles.SmallText
@@ -82,7 +83,7 @@ CustomListItem {
                 Label {
                     id: messageLabel
                     text: dialog.message.body
-                    textStyle.fontWeight: FontWeight.W200
+//                    textStyle.fontWeight: FontWeight.W200
                     verticalAlignment: VerticalAlignment.Center
                     multiline: true
                     autoSize.maxLineCount: 10

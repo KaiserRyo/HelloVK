@@ -67,7 +67,7 @@ function getLongPollHistory(ts) {
 					if (dialog) {
 						dialog = updateDialogByUser(dialog, fromCurrUser, update[1], update[4], update[5], update[6], update[7]);
 						
-						app.dialogsService.dialogUpdated(dialog);
+						app.dialogsService.dialogUpdated(dialog, fromCurrUser);
 						app.dialogsService.setDialogs(newDialogs);
 					} else {
 						var friend = findUserById(app.friendsService.friends, userId);
@@ -76,7 +76,7 @@ function getLongPollHistory(ts) {
 							
 							newDialogs.push(dialog);
 							
-							app.dialogsService.dialogAdded(dialog);
+							app.dialogsService.dialogAdded(dialog, fromCurrUser);
 							app.dialogsService.setDialogs(newDialogs);
 							app.dialogsService.setCount(++app.dialogsService.count);
 							app.dialogsService.setUnreadDialogs(++app.dialogsService.unreadDialogs);
