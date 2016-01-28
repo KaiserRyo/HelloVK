@@ -7,17 +7,11 @@ import "/js/DialogsService.js" as DialogsService;
 Page {
     id: dialogPage
     
-//    signal messageSent(variant message)
-    
-//    property variant dialog: {user: 
-//        {first_name: "Mikhail", last_name: "Chachkouski"}, messages: [
-//            {id: 82066, body: "не спрячешься!", user_id: 214914887, from_id: 214914887, date: 1453543702, read_state: 0, out: 0},
-//            {id: 82067, body: "эээ ну", user_id: 214914887, from_id: 214914887, date: 1453543916, read_state: 0, out: 0},
-//            {id: 82067, body: "хрен", user_id: 214914887, from_id: 214914887, date: 1453543920, read_state: 0, out: 0}
-//        ]}
     property variant dialog
     
-    function cleanup() {}
+    function cleanup() {
+        _app.dialogsService.dialogUpdated.disconnect(dialogPage.messageReceived);
+    }
     
     function fill() {
         "use strict";
@@ -122,6 +116,12 @@ Page {
         return singleMessage;
     }
     
+    function messageReceived(updatedDialog) {
+//        if (updatedDialog.user.id === dialog.user.id && dialog.message.from_id !== _app.userService.user.id) {
+//            messageSent(updatedDialog.message);
+//        }
+    }
+    
     titleBar: UserTitleBar {
         user: getUser()
     }
@@ -153,6 +153,10 @@ Page {
     
     onDialogChanged: {
         fill();
+    }
+    
+    onCreationCompleted: {
+        _app.dialogsService.dialogUpdated.connect(dialogPage.messageReceived);
     }
             
     actions: [

@@ -4,7 +4,7 @@
 <context>
     <name>Dialog</name>
     <message>
-        <location filename="../assets/pages/Dialog.qml" line="161"/>
+        <location filename="../assets/pages/Dialog.qml" line="165"/>
         <source>Enter text</source>
         <translation type="unfinished"></translation>
     </message>

@@ -88,3 +88,7 @@ function getCity(friend) {
 function getProp(friend, propName) {
 	return isPropExists(friend, propName) ? friend[propName] : "";
 }
+
+function isPropExists(obj, propName) {
+    return obj.hasOwnProperty(propName) && obj[propName] !== "";
+}
