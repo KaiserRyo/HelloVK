@@ -1,6 +1,7 @@
 import bb.cascades 1.4
 
 import "components"
+import "controls"
 import "/js/VKService.js" as VKService;
 import "/js/DialogsService.js" as DialogsService;
 
@@ -15,7 +16,6 @@ Page {
     
     function fill() {
         "use strict";
-        
         messagesContainer.removeAll();
         var messages = [];
         var from = 0;
@@ -95,9 +95,7 @@ Page {
     
     function messageSent(message) {
         "use strict";
-        
         dialog.messages.push(message);
-        
         var singleMessage = undefined;
         var messages = messageComponents();
         if (messages.length !== 0) {
@@ -120,7 +118,6 @@ Page {
     
     function messageReceived(updatedDialog, fromCurrUser) {
         "use strict";
-        
         if (updatedDialog.user.id === dialog.user.id && !fromCurrUser) {
             var m = updatedDialog.message;
             var newMessage = { id: m.id, body: m.body, user_id: dialogPage.dialog.user.id, from_id: dialogPage.dialog.user.id, 
@@ -130,6 +127,7 @@ Page {
     }
     
     function outgoingMessagesReaded(newDialog) {
+        "use strict";
         if (dialog.user.id === newDialog.user.id) {
             var ownMessages = messageComponents("ownMessage");
             ownMessages.forEach(function(mComponent) {
@@ -169,9 +167,7 @@ Page {
             Container { 
                 id: messagesRootContainer
                                 
-                Container { 
-                    minHeight: ui.du(1) 
-                }
+                MessageContainerDivider {}
                 
                 Container {
                     id: messagesContainer
@@ -185,9 +181,7 @@ Page {
                     ]
                 }
                 
-                Container { 
-                    minHeight: ui.du(1) 
-                }
+                MessageContainerDivider {}
             }
         }
     }
@@ -235,7 +229,6 @@ Page {
     
     attachedObjects: [
         ComponentDefinition { id: userMessage; UserMessage { objectName: "userMessage" }},
-        ComponentDefinition { id: ownMessage; OwnMessage { objectName: "ownMessage" }},
-        ComponentDefinition { id: messageDivider; Container { objectName: "messageDivider"; minHeight: ui.du(1) }}
+        ComponentDefinition { id: ownMessage; OwnMessage { objectName: "ownMessage" }}
     ]
 }
