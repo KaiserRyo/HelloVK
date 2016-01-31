@@ -16,7 +16,8 @@ var Status = {
 var Action = {
 	FRIEND_BECAME_ONLINE: 8,
 	FRIEND_BECAME_OFFLINE: 9,
-	MESSAGE_ADDED: 4
+	MESSAGE_ADDED: 4,
+	OUTGOING_MESSAGES_READED: 7
 };
 
 var Flag = {
@@ -24,11 +25,8 @@ var Flag = {
 };
 
 function start() {
-	console.debug("long poll service started");
-	Http.post(Http.vkApiUrl + "/messages.getLongPollServer", {
-		use_ssl : 1,
-		need_pts : 1
-	}, function(response) {
+	var data = { use_ssl : 1, need_pts : 1 };
+	Http.post(Http.vkApiUrl + "/messages.getLongPollServer", data, function(response) {
 		console.debug(response);
 		longPollServer = JSON.parse(response).response;
 		getLongPollHistory(longPollServer.ts);
@@ -36,17 +34,12 @@ function start() {
 }
 
 function getLongPollHistory(ts) {
-	Http.post("http://" + longPollServer.server, {
-		act : "a_check",
-		key : longPollServer.key,
-		ts : ts,
-		wait : 25,
-		mode : 2
-	}, function(response) {
+	var data = { act : "a_check", key : longPollServer.key, ts : ts, wait : 25, mode : 2 };
+	Http.post("http://" + longPollServer.server, data, function(response) {
 		console.debug(response);
 		var responseObj = JSON.parse(response);
 		if (responseObj.hasOwnProperty("failed")) {
-			if (responseObj.failed === 2) {
+			if (responseObj.failed === 2 || responseObj.failed === 1 || responseObj.failed === 3) {
 				start();
 			}
 		} else {
@@ -60,19 +53,20 @@ function getLongPollHistory(ts) {
 					
 					var newDialogs = app.dialogsService.dialogs.slice();
 					var fromCurrUser = update[2] === Flag.MESSAGE_BY_CURR_USER;
+					var currUserId = app.userService.user.id;
 					var userId = update[3];
 					
 					var dialog = findByUserId(newDialogs, userId);
 					
 					if (dialog) {
-						dialog = updateDialogByUser(dialog, fromCurrUser, update[1], update[4], update[5], update[6], update[7]);
+						dialog = updateDialogByUser(dialog, fromCurrUser, update[1], update[4], update[5], update[6], update[7], currUserId);
 						
 						app.dialogsService.dialogUpdated(dialog, fromCurrUser);
 						app.dialogsService.setDialogs(newDialogs);
 					} else {
 						var friend = findUserById(app.friendsService.friends, userId);
 						if (friend) {
-							dialog = createDialog(friend, fromCurrUser, update[1], update[4], update[5], update[6], update[7]);
+							dialog = createDialog(friend, fromCurrUser, update[1], update[4], update[5], update[6], update[7], currUserId);
 							
 							newDialogs.push(dialog);
 							
@@ -82,13 +76,32 @@ function getLongPollHistory(ts) {
 							app.dialogsService.setUnreadDialogs(++app.dialogsService.unreadDialogs);
 						}
 					}
+				} else if (responseCode === Action.OUTGOING_MESSAGES_READED) {
+					var newDialogs = app.dialogsService.dialogs.slice();
+					var readedByUserId = update[1];
+					
+					var dialog = findByUserId(newDialogs, readedByUserId);
+					if (dialog && dialog.messages) {
+						var newMessages = dialog.messages.slice();
+						var ownMessages = findMessagesByUserId(newMessages, app.userService.user.id);
+						var unreadMessages = findUnreadMessages(ownMessages);
+						unreadMessages.forEach(function(m) {
+							m.read_state = 1;
+						});
+						dialog.messages = newMessages;
+						
+						app.dialogsService.dialogUpdated(dialog, true);
+						app.dialogsService.setDialogs(newDialogs);
+						app.dialogsService.outgoingMessagesReaded(findByUserId(app.dialogsService.dialogs, readedByUserId));
+					}
 				}
 			});
 			getLongPollHistory(responseObj.ts);
 		}
-
 	});
 }
+
+//{"ts":1794277831,"updates":[[3,82185,1,214914887],[3,82186,1,214914887],[3,82187,1,214914887],[3,82188,1,214914887],[3,82189,1,214914887],[7,214914887,82189]]}
 
 //    {"ts":1869517277,"updates":[[4,82033,33,214914887,1453116338," ... ","Дарова, лысый",{}],[80,3,0],[7,214914887,82032]]}
 

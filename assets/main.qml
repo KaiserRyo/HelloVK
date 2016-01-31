@@ -104,11 +104,18 @@ NavigationPane {
                     var d = dialog;
                     if (!d.messages) {
                         VKService.messages.getHistory(d.user.id, function(response) {
-                                d.messages = response.items;
-                                var dialogPageObj = dialogPage.createObject();
-                                dialogPageObj.dialog = d;
-                                navigationPane.push(dialogPageObj);
-                                dialogLoaded();    
+                            var newDialogs = _app.dialogsService.dialogs.slice();
+                            var newDialog = DialogsService.findByUserId(newDialogs, d.user.id);
+                            newDialog.messages = response.items;
+                            
+                            _app.dialogsService.dialogUpdated(newDialog, true);
+                            _app.dialogsService.setDialogs(newDialogs);
+                            
+                            var dialogPageObj = dialogPage.createObject();
+                            dialogPageObj.dialog = newDialog;
+                            
+                            navigationPane.push(dialogPageObj);
+                            dialogLoaded();    
                         });
                     } else {
                         var dialogPageObj = dialogPage.createObject();

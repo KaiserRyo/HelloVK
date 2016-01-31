@@ -17,7 +17,6 @@ Page {
         "use strict";
         
         messagesContainer.removeAll();
-        messagesContainer.add(messageDivider.createObject());
         var messages = [];
         var from = 0;
         var messageObj = undefined;
@@ -47,7 +46,6 @@ Page {
             messageObj.messages = messages;
             messagesContainer.add(messageObj);
         }
-        messagesContainer.add(messageDivider.createObject());
     }
     
     function createMessageObject(from) {
@@ -62,13 +60,17 @@ Page {
         return dialog ? dialog.user : {};
     }
     
-    function messageComponents() {
+    function messageComponents(objectName) {
         "use strict";
         var messageComponents = [];
         for (var i = 0; i < messagesContainer.controls.length; i++) {
-            var messageComponent = messagesContainer.controls[i];
-            if (messageComponent.objectName === "userMessage" || messageComponent.objectName === "ownMessage") {
-                messageComponents.push(messageComponent);
+            if (objectName) {
+                var messageComponent = messagesContainer.controls[i];
+                if (messageComponent.objectName === objectName) {
+                    messageComponents.push(messageComponent);
+                }
+            } else {
+                messageComponents.push(messagesContainer.controls[i]);
             }
         }
         return messageComponents;
@@ -117,12 +119,33 @@ Page {
     }
     
     function messageReceived(updatedDialog, fromCurrUser) {
+        "use strict";
+        
         if (updatedDialog.user.id === dialog.user.id && !fromCurrUser) {
             var m = updatedDialog.message;
             var newMessage = { id: m.id, body: m.body, user_id: dialogPage.dialog.user.id, from_id: dialogPage.dialog.user.id, 
                                date: m.date, read_state: m.read_state, out: m.out };
-            messageSent(newMessage);
+            var singleMessageComponent = messageSent(newMessage);
         }
+    }
+    
+    function outgoingMessagesReaded(newDialog) {
+        if (dialog.user.id === newDialog.user.id) {
+            var ownMessages = messageComponents("ownMessage");
+            ownMessages.forEach(function(mComponent) {
+                var newMessages = mComponent.messages.slice();
+                if (newMessages.some(isUnread)) {
+                    newMessages.forEach(function(m) {
+                        m.read_state = 1;
+                    });
+                    mComponent.messages = newMessages;
+                }
+            });
+        }
+    }
+    
+    function isUnread(message) {
+        return message.read_state === 0;
     }
     
     titleBar: UserTitleBar {
@@ -140,15 +163,30 @@ Page {
             scrollViewProperties {
                 scrollMode: ScrollMode.Vertical
             }
-
+            
             verticalAlignment: VerticalAlignment.Center
             
             Container { 
-                id: messagesContainer
+                id: messagesRootContainer
+                                
+                Container { 
+                    minHeight: ui.du(1) 
+                }
                 
-                onControlAdded: {
-                    var count = messagesContainer.count();
-                    messagesScrollView.scrollToPoint(0, (count === 0 ? count : count - 1) * 1500);
+                Container {
+                    id: messagesContainer
+                    
+                    attachedObjects: [
+                        LayoutUpdateHandler {
+                            onLayoutFrameChanged: {
+                                messagesScrollView.scrollToPoint(0, layoutFrame.height);
+                            }
+                        }
+                    ]
+                }
+                
+                Container { 
+                    minHeight: ui.du(1) 
                 }
             }
         }
@@ -160,6 +198,7 @@ Page {
     
     onCreationCompleted: {
         _app.dialogsService.dialogUpdated.connect(dialogPage.messageReceived);
+        _app.dialogsService.outgoingMessagesReaded.connect(dialogPage.outgoingMessagesReaded);
     }
             
     actions: [
@@ -171,9 +210,11 @@ Page {
                 submitKey: SubmitKey.EnterKey
                 
                 onSubmitted: {
+                    messagesScrollView.scrollToPoint(0, 100000000);
                     var tempID = Date.now() / 1000;
                     var text = messageText.text;
                     var newMessage = { id: tempID, body: text, user_id: dialog.user.id, from_id: _app.userService.user.id, date: tempID, read_state: 2, out: 0 };
+                    
                     var singleMessageComponent = messageSent(newMessage);
                     messageText.resetText();
                     
