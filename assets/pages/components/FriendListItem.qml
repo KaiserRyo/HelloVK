@@ -9,10 +9,16 @@ CustomListItem {
         layout: StackLayout {
             orientation: LayoutOrientation.LeftToRight
         }
-        WebView {
-            url: friend.photo_100
-            preferredWidth: ui.du(11.0)
+        Container {
+            minWidth: ui.du(11.0)
+            maxWidth: ui.du(11.0)
+            WebView {
+                url: friend.photo_100
+                minWidth: ui.du(11.0)
+                maxWidth: ui.du(11.0)
+            }
         }
+        
         Container {
             leftPadding: ui.du(1.0)
             preferredHeight: ui.du(10.0) 

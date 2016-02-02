@@ -10,10 +10,18 @@ TitleBar {
             layout: StackLayout {
                 orientation: LayoutOrientation.LeftToRight
             }
-            WebView {
-                url: user.photo_100 ? user.photo_100 : ""
-                preferredWidth: ui.du(11)
-                preferredHeight: ui.du(11)
+            Container {
+                minWidth: ui.du(11)
+                maxWidth: ui.du(11)
+                minHeight: ui.du(11)
+                maxHeight: ui.du(11)
+                WebView {
+                    url: user.photo_100 ? user.photo_100 : ""
+                    minWidth: ui.du(11)
+                    maxWidth: ui.du(11)
+                    minHeight: ui.du(11)
+                    maxHeight: ui.du(11)
+                }
             }
             Label {
                 text: user.first_name + " " + user.last_name

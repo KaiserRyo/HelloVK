@@ -1,4 +1,5 @@
 config-pri.hash=786C218C17D12C7B4213BDC9E1D84D11
 config-pri.version=2.0
 eclipse.preferences.version=1
+white-list.FriendsService=
 white-list.VKService=

@@ -48,7 +48,7 @@
 <context>
     <name>FriendInfo</name>
     <message>
-        <location filename="../assets/pages/FriendInfo.qml" line="159"/>
+        <location filename="../assets/pages/FriendInfo.qml" line="118"/>
         <source>Write a message</source>
         <translation type="unfinished"></translation>
     </message>
@@ -56,12 +56,12 @@
 <context>
     <name>FriendListItem</name>
     <message>
-        <location filename="../assets/pages/components/FriendListItem.qml" line="44"/>
+        <location filename="../assets/pages/components/FriendListItem.qml" line="50"/>
         <source>account deactivated</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/components/FriendListItem.qml" line="45"/>
+        <location filename="../assets/pages/components/FriendListItem.qml" line="51"/>
         <source>online</source>
         <translation type="unfinished"></translation>
     </message>

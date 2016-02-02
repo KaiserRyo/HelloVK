@@ -19,10 +19,12 @@ CustomListItem {
             orientation: LayoutOrientation.LeftToRight
         }
         Container {
+            maxWidth: ui.du(11.0)
+            minWidth: ui.du(11.0)
             WebView {
-                url: dialog.message.chat_id ? dialog.message.photo_100 : dialog.user.photo_100
-                preferredWidth: ui.du(11.0)
+                maxWidth: ui.du(11.0)
                 minWidth: ui.du(11.0)
+                url: dialog.message.chat_id ? dialog.message.photo_100 : dialog.user.photo_100
             }
         }
         Container {
@@ -83,7 +85,6 @@ CustomListItem {
                 Label {
                     id: messageLabel
                     text: dialog.message.body
-//                    textStyle.fontWeight: FontWeight.W200
                     verticalAlignment: VerticalAlignment.Center
                     multiline: true
                     autoSize.maxLineCount: 10
