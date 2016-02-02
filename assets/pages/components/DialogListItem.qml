@@ -18,14 +18,9 @@ CustomListItem {
         layout: StackLayout {
             orientation: LayoutOrientation.LeftToRight
         }
-        Container {
-            maxWidth: ui.du(11.0)
-            minWidth: ui.du(11.0)
-            WebView {
-                maxWidth: ui.du(11.0)
-                minWidth: ui.du(11.0)
-                url: dialog.message.chat_id ? dialog.message.photo_100 : dialog.user.photo_100
-            }
+        AnimatedWebView {
+            size: 11
+            webImageUrl: dialog.message.chat_id ? dialog.message.photo_100 : dialog.user.photo_100
         }
         Container {
             leftPadding: ui.du(1.0)

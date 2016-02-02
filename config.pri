@@ -76,6 +76,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/pages/SplashScreen.qml) \
         $$quote($$BASEDIR/assets/pages/Test.qml) \
         $$quote($$BASEDIR/assets/pages/VKAuth.qml) \
+        $$quote($$BASEDIR/assets/pages/components/AnimatedWebView.qml) \
         $$quote($$BASEDIR/assets/pages/components/ContactBdateContainer.qml) \
         $$quote($$BASEDIR/assets/pages/components/ContactCallContainer.qml) \
         $$quote($$BASEDIR/assets/pages/components/ContactContainer.qml) \

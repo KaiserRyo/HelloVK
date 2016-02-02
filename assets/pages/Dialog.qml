@@ -8,7 +8,7 @@ import "/js/DialogsService.js" as DialogsService;
 Page {
     id: dialogPage
     
-    property variant dialog
+    property variant dialog: {messages: [], user: {}}
     
     signal proceedTo(string pageName)
     

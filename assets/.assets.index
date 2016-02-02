@@ -1,5 +1,5 @@
 1
-60
+61
 img/ca_browser.png
 img/ca_contacts.png
 img/ca_device.png
@@ -33,6 +33,7 @@ js/Store.js
 js/VKService.js
 json/friends.json
 main.qml
+pages/components/AnimatedWebView.qml
 pages/components/ContactBdateContainer.qml
 pages/components/ContactCallContainer.qml
 pages/components/ContactContainer.qml

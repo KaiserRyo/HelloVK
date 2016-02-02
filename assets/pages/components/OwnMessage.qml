@@ -5,15 +5,14 @@ import "../controls"
 Container {
     id: root
     
-    property variant user: {first_name: "Mikhail", last_name: "Chachkouski"}
-    property variant messages: [
-        {date: 1452962381, read_state: 1, body: "Privet! sdsdfsdf sdfsdf sdfsdfsdf sdfsdfsdfsdf s sdfsdfwersdfsdfwer Privet! Privet! Privet! Privet! Privet! Privet! Privet! Privet!"}, 
-        {date: 1452962400, read_state: 0, body: "Hey ho!!"}
-    ]
+    property variant user: {}
+    property variant messages: []
 
     function getDate() {
-        var date = new Date(messages[messages.length - 1].date * 1000);
-        return Qt.formatDate(date, "dd MMM yyyy ") + Qt.formatTime(date, "HH:mm");
+        if (messages.length !== 0) {
+            var date = new Date(messages[messages.length - 1].date * 1000);
+            return Qt.formatDate(date, "dd MMM yyyy ") + Qt.formatTime(date, "HH:mm");
+        }
     }
     
     function statesImages() {
@@ -63,12 +62,9 @@ Container {
             topPadding: ui.du(1)
             background: Color.White
             
-            WebView {
-                url: user.photo_100 ? user.photo_100 : ""
-                minWidth: ui.du(5)
-                minHeight: ui.du(5)
-                preferredWidth: ui.du(5)
-                preferredHeight: ui.du(5)
+            AnimatedWebView {
+                size: 5
+                webImageUrl: user.photo_100 || ""
             }
             
             Container {
@@ -121,10 +117,6 @@ Container {
     }
     
     onMessagesChanged: {
-        fill();
-    }
-    
-    onCreationCompleted: {
         fill();
     }
     

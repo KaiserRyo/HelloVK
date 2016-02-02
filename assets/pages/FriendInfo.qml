@@ -41,19 +41,9 @@ Page {
             layout: StackLayout {
                 orientation: LayoutOrientation.LeftToRight
             }
-            Container {
-                minWidth: ui.du(25)
-                minHeight: ui.du(25)
-                maxWidth: ui.du(25)
-                maxHeight: ui.du(25)
-                WebView {
-                    url: friend.photo_max_orig || ""
-                    maxWidth: ui.du(25)
-                    maxHeight: ui.du(25)
-                    layoutProperties: StackLayoutProperties {
-                        spaceQuota: 0.5
-                    }
-                }
+            AnimatedWebView {
+                size: 25
+                webImageUrl: friend.photo_max_orig || ""
             }
             Container {
                 id: mainInfo

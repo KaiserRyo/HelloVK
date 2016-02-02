@@ -19,7 +19,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/Dialog.qml" line="250"/>
+        <location filename="../assets/pages/Dialog.qml" line="249"/>
         <source>Friends</source>
         <translation type="unfinished"></translation>
     </message>
@@ -63,7 +63,7 @@
 <context>
     <name>FriendInfo</name>
     <message>
-        <location filename="../assets/pages/FriendInfo.qml" line="120"/>
+        <location filename="../assets/pages/FriendInfo.qml" line="110"/>
         <source>Write a message</source>
         <translation type="unfinished"></translation>
     </message>
@@ -71,12 +71,12 @@
 <context>
     <name>FriendListItem</name>
     <message>
-        <location filename="../assets/pages/components/FriendListItem.qml" line="50"/>
+        <location filename="../assets/pages/components/FriendListItem.qml" line="44"/>
         <source>account deactivated</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/components/FriendListItem.qml" line="51"/>
+        <location filename="../assets/pages/components/FriendListItem.qml" line="45"/>
         <source>online</source>
         <translation type="unfinished"></translation>
     </message>
