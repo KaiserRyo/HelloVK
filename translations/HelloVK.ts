@@ -48,7 +48,7 @@
 <context>
     <name>FriendInfo</name>
     <message>
-        <location filename="../assets/pages/FriendInfo.qml" line="118"/>
+        <location filename="../assets/pages/FriendInfo.qml" line="120"/>
         <source>Write a message</source>
         <translation type="unfinished"></translation>
     </message>

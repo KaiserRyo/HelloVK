@@ -95,7 +95,17 @@ NavigationPane {
         },
         ComponentDefinition {
             id: friendInfo
-            source: "asset:///pages/FriendInfo.qml"
+            FriendInfo {
+                onDialogStarted: {
+                    var dialogPageObj = dialogPage.createObject();
+                    var dialog = DialogsService.findByUserId(_app.dialogsService.dialogs, friend.id);
+                    if (!dialog) {
+                        dialog = DialogsService.createEmptyDialog(friend);
+                    }
+                    dialogPageObj.dialog = dialog;
+                    navigationPane.push(dialogPageObj);
+                }
+            }
         },
         ComponentDefinition {
             id: dialogsPage
@@ -128,9 +138,7 @@ NavigationPane {
         },
         ComponentDefinition {
             id: dialogPage
-            Dialog {
-                
-            }
+            Dialog {}
         },
         SplashScreen {
             id: splashScreen

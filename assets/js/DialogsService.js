@@ -33,6 +33,10 @@ function findByUserId(dialogs, userId) {
 	})[0];
 }
 
+function createEmptyDialog(user) {
+	return { user: user, message: {}, messages: []};
+}
+
 function createDialog(user, fromCurrUser, messageId, date, title, body, attachments, currUserId) {
 	var readState = 0;
 	var out = fromCurrUser ? 1 : 0;

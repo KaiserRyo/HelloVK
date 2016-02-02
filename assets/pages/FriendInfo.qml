@@ -8,6 +8,8 @@ Page {
     
     property variant friend: {}
     
+    signal dialogStarted(variant user)
+    
     function cleanup() {}
     
     function updateFriendInfo() {
@@ -121,6 +123,7 @@ Page {
             
             onTriggered: {
                 console.debug("Write message to: " + friend.first_name + " " + friend.last_name);
+                dialogStarted(friend);
             }
         }
     ]
