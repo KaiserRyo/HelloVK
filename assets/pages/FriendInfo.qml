@@ -122,7 +122,6 @@ Page {
             imageSource: "asset:///img/ic_textmessage_dk.png"
             
             onTriggered: {
-                console.debug("Write message to: " + friend.first_name + " " + friend.last_name);
                 dialogStarted(friend);
             }
         }

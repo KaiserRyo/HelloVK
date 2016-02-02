@@ -10,6 +10,8 @@ Page {
     
     property variant dialog
     
+    signal proceedTo(string pageName)
+    
     function cleanup() {
         _app.dialogsService.dialogUpdated.disconnect(dialogPage.messageReceived);
     }
@@ -142,6 +144,29 @@ Page {
         }
     }
     
+    function send() {
+        "use strict";
+        var tempID = Date.now() / 1000;
+        var text = messageText.text;
+        if (text.trim()) {
+            var newMessage = { id: tempID, body: text, user_id: dialog.user.id, from_id: _app.userService.user.id, date: tempID, read_state: 2, out: 0 };
+            
+            var singleMessageComponent = messageSent(newMessage);
+            messageText.resetText();
+            
+            VKService.initService(_app);
+            VKService.messages.send(dialog.user.id, text, function(messageId) {
+                    var newMessages = singleMessageComponent.messages.slice();
+                    var deliveredMessage = DialogsService.findMessageById(newMessages, tempID);
+                    if (deliveredMessage) {
+                        deliveredMessage.id = messageId;
+                        deliveredMessage.read_state = 0;
+                        singleMessageComponent.messages = newMessages;
+                    }
+            });
+        }
+    }
+    
     function isUnread(message) {
         return message.read_state === 0;
     }
@@ -202,27 +227,28 @@ Page {
             textFormat: TextFormat.Plain
             input {
                 submitKey: SubmitKey.EnterKey
-                
                 onSubmitted: {
-                    messagesScrollView.scrollToPoint(0, 100000000);
-                    var tempID = Date.now() / 1000;
-                    var text = messageText.text;
-                    var newMessage = { id: tempID, body: text, user_id: dialog.user.id, from_id: _app.userService.user.id, date: tempID, read_state: 2, out: 0 };
-                    
-                    var singleMessageComponent = messageSent(newMessage);
-                    messageText.resetText();
-                    
-                    VKService.initService(_app);
-                    VKService.messages.send(dialog.user.id, text, function(messageId) {
-                        var newMessages = singleMessageComponent.messages.slice();
-                        var deliveredMessage = DialogsService.findMessageById(newMessages, tempID);
-                        if (deliveredMessage) {
-                            deliveredMessage.id = messageId;
-                            deliveredMessage.read_state = 0;
-                            singleMessageComponent.messages = newMessages;
-                        }
-                    });
+                    send();
                 }
+            }
+        },
+        ActionItem {
+            title: qsTr("Send")
+            ActionBar.placement: ActionBarPlacement.OnBar
+            onTriggered: {
+                send();
+            }
+        },
+        ActionItem {
+            title: qsTr("Dialogs")
+            onTriggered: {
+                proceedTo("dialogs");
+            }
+        },
+        ActionItem {
+            title: qsTr("Friends")
+            onTriggered: {
+                proceedTo("friends");
             }
         }
     ]

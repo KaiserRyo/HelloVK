@@ -138,7 +138,18 @@ NavigationPane {
         },
         ComponentDefinition {
             id: dialogPage
-            Dialog {}
+            Dialog {
+                onProceedTo: {
+                    while(navigationPane.count() !== 1) {
+                        navigationPane.pop();
+                    }
+                    if (pageName === "dialogs") {
+                        navigationPane.push(dialogsPage.createObject());
+                    } else if (pageName === "friends") {
+                        navigationPane.push(friendsPage.createObject());
+                    }
+                }
+            }
         },
         SplashScreen {
             id: splashScreen

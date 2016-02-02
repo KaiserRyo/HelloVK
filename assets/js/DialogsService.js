@@ -51,7 +51,7 @@ function createDialog(user, fromCurrUser, messageId, date, title, body, attachme
 function updateDialogByUser(dialog, fromCurrUser, messageId, date, title, body, attachments, currUserId) {
 	if (isPropExists(dialog, "unread")) {
 		if (!fromCurrUser) {
-			dialog.unread++;
+			dialog.unread === "" ? 1 : dialog.unread + 1;
 		} else {
 			delete dialog.unread;
 		}

@@ -57,6 +57,9 @@ Page {
         }
         scrollIndicatorMode: ScrollIndicatorMode.ProportionalBar
         scrollRole: ScrollRole.Main
+        layout: StackListLayout {
+            headerMode: ListHeaderMode.Sticky
+        }
     }
 
     onCreationCompleted: {

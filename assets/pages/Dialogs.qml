@@ -59,6 +59,10 @@ Page {
         dataModel: ArrayDataModel {
             id: dialogsArray
         }
+        
+        layout: StackListLayout {
+            headerMode: ListHeaderMode.Sticky
+        }
                 
         listItemComponents: [
             ListItemComponent {
