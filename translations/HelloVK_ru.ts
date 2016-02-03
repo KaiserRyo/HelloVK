@@ -63,7 +63,62 @@
 <context>
     <name>FriendInfo</name>
     <message>
-        <location filename="../assets/pages/FriendInfo.qml" line="110"/>
+        <location filename="../assets/pages/FriendInfo.qml" line="99"/>
+        <source>Info</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/pages/FriendInfo.qml" line="104"/>
+        <source>Other</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/pages/FriendInfo.qml" line="146"/>
+        <source>About</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/pages/FriendInfo.qml" line="151"/>
+        <source>Activities</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/pages/FriendInfo.qml" line="156"/>
+        <source>Interests</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/pages/FriendInfo.qml" line="161"/>
+        <source>Music</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/pages/FriendInfo.qml" line="166"/>
+        <source>Movies</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/pages/FriendInfo.qml" line="171"/>
+        <source>TV</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/pages/FriendInfo.qml" line="176"/>
+        <source>Books</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/pages/FriendInfo.qml" line="181"/>
+        <source>Games</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/pages/FriendInfo.qml" line="186"/>
+        <source>Quotes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/pages/FriendInfo.qml" line="211"/>
         <source>Write a message</source>
         <translation type="unfinished"></translation>
     </message>

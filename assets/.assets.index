@@ -1,5 +1,5 @@
 1
-61
+62
 img/ca_browser.png
 img/ca_contacts.png
 img/ca_device.png
@@ -42,6 +42,7 @@ pages/components/ContactSkypeContainer.qml
 pages/components/ContactSmsContainer.qml
 pages/components/DialogListItem.qml
 pages/components/FriendListItem.qml
+pages/components/InfoLabelText.qml
 pages/components/OwnMessage.qml
 pages/components/SearchTitleBar.qml
 pages/components/SingleMessage.qml
