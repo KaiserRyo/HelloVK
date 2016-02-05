@@ -7,6 +7,9 @@ import "/js/FriendsService.js" as FriendsService
 Page {
     
     property variant friend: {}
+    property bool minimized: true
+    property int avatarSize: 0
+    property int nameContainerSize: 0
     
     signal dialogStarted(variant user)
     
@@ -15,10 +18,6 @@ Page {
     function updateFriendInfo() {
         if (friend) {
             if (!friend.hasOwnProperty("deactivated")) {
-                job.visible = FriendsService.getCurrentJob(friend) !== "";
-                edu.visible = FriendsService.getEducation(friend) !== "";
-                city.visible = FriendsService.getCity(friend) !== "";
-                
                 phoneContainer.visible = FriendsService.isPropExists(friend, "mobile_phone");
                 
                 webContactsContainer.visible = friend.site || friend.skype;
@@ -41,89 +40,158 @@ Page {
         }
     }
     
+    function translate() {
+        rootInfoContainer.translationY = minimized ? ui.px(avatarSize - nameContainerSize) : ui.du(30);
+        avatar.translationY = minimized ? ui.du(5) : ui.du(-10);
+    }
+    
+    function getSubtitle() {
+        var data = [];
+        data.push(FriendsService.getCurrentJob(friend) || "");
+        data.push(FriendsService.getEducation(friend) || "");
+        data.push(FriendsService.getCity(friend) || "");
+        return data.join("\n");        
+    }
+    
+    function getAvatar() {
+        var crop = friend.crop_photo;
+        if (crop) {
+            if (crop.photo.photo_1280) {
+                return crop.photo.photo_1280
+            } else if (crop.photo.photo_807) {
+                return crop.photo.photo_807;
+            }
+        } 
+        return friend.photo_max_orig;
+    }
+    
+    function getHTML() {
+        var data = [];
+        data.push('<html><head><title>');
+        data.push(friend.first_name + ' ' + friend.last_name);
+        data.push('</title></head>');
+        data.push('<body style="background-color: black; text-align: center">'); 
+        data.push('<div style="min-width: 720px; max-width: 1440px"><img src="' + getAvatar() + '" style="width: 100%"/></div>');
+        data.push('</body></html>');
+        return data.join("");
+    }
+    
     Container {
+        layout: DockLayout {}
         Container {
-            leftPadding: ui.du(1)
-            topPadding: ui.du(1)
-            rightPadding: ui.du(1)
-            bottomPadding: ui.du(1)
-            background: Color.create("#F0F0F0")
-            
-            layout: StackLayout {
-                orientation: LayoutOrientation.LeftToRight
-            }
-            AnimatedWebView {
-                size: 25
-                webImageUrl: friend.photo_max_orig || ""
-            }
-            Container {
-                id: mainInfo
-                layoutProperties: StackLayoutProperties {
-                    spaceQuota: 1
+            id: avatar
+            translationY: ui.du(-10)            
+            horizontalAlignment: HorizontalAlignment.Fill
+            background: Color.Black
+            ScrollView {
+                enabled: !minimized;
+                WebView {
+                    id: avatarWebView
+                    html: getHTML()
+                    horizontalAlignment: HorizontalAlignment.Center
+                    
+                    attachedObjects: [
+                        LayoutUpdateHandler {
+                            onLayoutFrameChanged: {
+                                avatarSize = layoutFrame.height;
+                            }
+                        }
+                    ]
+                    
+                    gestureHandlers: [
+                        TapHandler {
+                            onTapped: {
+                                translate();
+                                minimized = !minimized;
+                            }
+                        }
+                    ]
                 }
-                leftMargin: ui.du(2)
+            }
+        }
+        
+        Container {
+            id: rootInfoContainer
+            translationY: ui.du(30);
+            horizontalAlignment: HorizontalAlignment.Center
+            
+            Container {
+                id: nameContainer
                 
+                horizontalAlignment: HorizontalAlignment.Fill
+                leftPadding: ui.du(2)
+                background: Color.create("#5a0d0000")
                 Label {
                     text: friend.first_name + " " + friend.last_name
                     textStyle.base: SystemDefaults.TextStyles.TitleText
-                    textStyle.color: Color.Black
+                    textStyle.color: Color.White
                 }
                 
-                Subtitle { id: job; subtitle: FriendsService.getCurrentJob(friend); }
-                Subtitle { id: edu; subtitle: FriendsService.getEducation(friend); }
-                Subtitle { id: city; subtitle: FriendsService.getCity(friend); }
-            }
-        }
-        MainDivider {}
-        
-        SegmentedControl {
-            options: [
-                Option {
-                    id: contactsInfo
-                    text: qsTr("Info")
-                    selected: true
-                },
-                Option {
-                    id: otherInfo
-                    text: qsTr("Other")
-                }
-            ]
-        
-        }
-        
-        ScrollView {
-            horizontalAlignment: HorizontalAlignment.Fill
-            verticalAlignment: VerticalAlignment.Fill
-            Container { 
-                id: infoContainer 
+                Subtitle { subtitle: getSubtitle(); }
                 
-                Container {
-                    id: contactsContainer
-                    visible: contactsInfo.selected
-                    Container { 
-                        id: phoneContainer 
-                        ContactCallContainer { text: FriendsService.getMobilePhone(friend); }
-                        ContactSmsContainer { text: FriendsService.getMobilePhone(friend); }
-                        BigDivider {}
-                    }       
-                    Container { 
-                        id: webContactsContainer
-                        ContactSiteContainer { id: site; text: FriendsService.getSites(friend); }
-                        ContactSkypeContainer { id: skype; text: FriendsService.getSkype(friend); }
-                        BigDivider {}
+                attachedObjects: [
+                    LayoutUpdateHandler {
+                        onLayoutFrameChanged: {
+                            nameContainerSize = layoutFrame.height;
+                        }
                     }
-                    Container { 
-                        id: bdateContainer
-                        ContactBdateContainer { text: FriendsService.getBdate(friend); }
-                        BigDivider {}
-                    }    
+                ]
+            }
+            
+            Container {
+                topPadding: ui.du(2.5)
+                background: Color.White
+                SegmentedControl {
+                    options: [
+                        Option {
+                            id: contactsInfo
+                            text: qsTr("Info")
+                            selected: true
+                        },
+                        Option {
+                            id: otherInfo
+                            text: qsTr("Other")
+                        }
+                    ]
+                
                 }
                 
-                Container {
-                    id: otherInfoContainer
-                    visible: otherInfo.selected
-                    leftPadding: ui.du(2)
-                    rightPadding: ui.du(2)
+                ScrollView {
+                    horizontalAlignment: HorizontalAlignment.Fill
+                    verticalAlignment: VerticalAlignment.Fill
+                    scrollRole: ScrollRole.Main
+                    Container { 
+                        id: infoContainer 
+                        
+                        Container {
+                            id: contactsContainer
+                            visible: contactsInfo.selected
+                            Container { 
+                                id: phoneContainer 
+                                ContactCallContainer { text: FriendsService.getMobilePhone(friend); }
+                                ContactSmsContainer { text: FriendsService.getMobilePhone(friend); }
+                                BigDivider {}
+                            }       
+                            Container { 
+                                id: webContactsContainer
+                                ContactSiteContainer { id: site; text: FriendsService.getSites(friend); }
+                                ContactSkypeContainer { id: skype; text: FriendsService.getSkype(friend); }
+                                BigDivider {}
+                            }
+                            Container { 
+                                id: bdateContainer
+                                ContactBdateContainer { text: FriendsService.getBdate(friend); }
+                                BigDivider {}
+                            }    
+                        }
+                        
+                        Container {
+                            id: otherInfoContainer
+                            visible: otherInfo.selected
+                            leftPadding: ui.du(2)
+                            rightPadding: ui.du(2)
+                        }
+                    }
                 }
             }
         }

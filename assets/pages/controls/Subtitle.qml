@@ -1,9 +1,10 @@
 import bb.cascades 1.4
 
 Label {
-    property string subtitle
+    property string subtitle: "undefined"
     
-    textStyle.base: SystemDefaults.TextStyles.SmallText
-    textStyle.color: Color.Black
+    textStyle.base: SystemDefaults.TextStyles.SubtitleText
+    textStyle.color: Color.White
     text: subtitle
+    multiline: true
 }
