@@ -42,7 +42,7 @@ Page {
     
     function translate() {
         rootInfoContainer.translationY = minimized ? ui.px(avatarSize - nameContainerSize) : ui.du(30);
-        avatar.translationY = minimized ? ui.du(5) : ui.du(-10);
+        avatar.translationY = minimized ? ui.du(0) : ui.du(-10);
     }
     
     function getSubtitle() {
@@ -54,14 +54,14 @@ Page {
     }
     
     function getAvatar() {
-        var crop = friend.crop_photo;
-        if (crop) {
-            if (crop.photo.photo_1280) {
-                return crop.photo.photo_1280
-            } else if (crop.photo.photo_807) {
-                return crop.photo.photo_807;
-            }
-        } 
+//        var crop = friend.crop_photo;
+//        if (crop) {
+//            if (crop.photo.photo_1280) {
+//                return crop.photo.photo_1280
+//            } else if (crop.photo.photo_807) {
+//                return crop.photo.photo_807;
+//            }
+//        } 
         return friend.photo_max_orig;
     }
     
