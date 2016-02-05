@@ -84,8 +84,9 @@ Page {
             horizontalAlignment: HorizontalAlignment.Fill
             background: Color.Black
             ScrollView {
-                enabled: !minimized;
+                accessibility.name: "Avatar scroll view"
                 WebView {
+                    accessibility.name: "Avatar"
                     id: avatarWebView
                     html: getHTML()
                     horizontalAlignment: HorizontalAlignment.Center
@@ -142,6 +143,7 @@ Page {
                 topPadding: ui.du(2.5)
                 background: Color.White
                 SegmentedControl {
+                    accessibility.name: "Type of friend info"
                     options: [
                         Option {
                             id: contactsInfo
@@ -153,16 +155,16 @@ Page {
                             text: qsTr("Other")
                         }
                     ]
-                
                 }
+                
+                Divider {}
                 
                 ScrollView {
                     horizontalAlignment: HorizontalAlignment.Fill
-                    verticalAlignment: VerticalAlignment.Fill
                     scrollRole: ScrollRole.Main
+                    accessibility.name: "Friend info scroll view"
                     Container { 
                         id: infoContainer 
-                        
                         Container {
                             id: contactsContainer
                             visible: contactsInfo.selected
