@@ -154,6 +154,7 @@ Page {
                 }
                 
                 ScrollView {
+                    id: infoScrollView
                     horizontalAlignment: HorizontalAlignment.Fill
                     scrollRole: ScrollRole.Main
                     accessibility.name: "Friend info scroll view"
@@ -186,6 +187,10 @@ Page {
                             visible: otherInfo.selected
                             leftPadding: ui.du(2)
                             rightPadding: ui.du(2)
+                        }
+                        
+                        Container {
+                            minHeight: ui.du(35)
                         }
                     }
                 }
