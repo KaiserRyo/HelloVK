@@ -113,6 +113,12 @@ NavigationPane {
                             var newDialogs = _app.dialogsService.dialogs.slice();
                             var newDialog = DialogsService.findByUserId(newDialogs, dialog.user.id);
                             newDialog.messages = response.items;
+                            
+                            if (newDialog.messages.length > 0) {
+                                var lastMessage = newDialog.messages[newDialog.messages.length - 1];
+                                newDialog.message = DialogsService.createDialogMessage(lastMessage.id, lastMessage.date, "", lastMessage.body, 
+                                lastMessage.attachments, lastMessage.out, lastMessage.from_id, lastMessage.read_state);
+                            }
                                 
                             _app.dialogsService.dialogUpdated(newDialog, true);
                             _app.dialogsService.setDialogs(newDialogs);
