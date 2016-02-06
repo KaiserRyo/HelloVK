@@ -10,8 +10,12 @@ CustomListItem {
     property bool loading: false
     
     function getDate() {
-        var date = new Date(dialog.message.date * 1000);
-        return Qt.formatDate(date, "dd MMM yyyy") + qsTr(" in ") + Qt.formatTime(date, "HH:mm");
+        if (dialog.message.date) {
+            var date = new Date(dialog.message.date * 1000);
+            return Qt.formatDate(date, "dd MMM yyyy") + qsTr(" in ") + Qt.formatTime(date, "HH:mm");
+        } else {
+            return "";
+        }
     }
     
     Container {
