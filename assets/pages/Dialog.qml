@@ -14,6 +14,8 @@ Page {
     
     function cleanup() {
         _app.dialogsService.dialogUpdated.disconnect(dialogPage.messageReceived);
+        _app.dialogsService.outgoingMessagesReaded.disconnect(dialogPage.outgoingMessagesReaded);
+        _app.dialogsService.incomingMessagesReaded.disconnect(dialogPage.incomingMessagesReaded);
     }
     
     function fill() {
@@ -130,9 +132,18 @@ Page {
     
     function outgoingMessagesReaded(newDialog) {
         "use strict";
+        readMessages(newDialog, "ownMessage");
+    }
+    
+    function incomingMessagesReaded(newDialog) {
+        "use strict";
+        readMessages(newDialog, "userMessage");
+    }
+    
+    function readMessages(newDialog, messagesType) {
+        "use strict";
         if (dialog.user.id === newDialog.user.id) {
-            var ownMessages = messageComponents("ownMessage");
-            ownMessages.forEach(function(mComponent) {
+            messageComponents(messagesType).forEach(function(mComponent) {
                 var newMessages = mComponent.messages.slice();
                 if (newMessages.some(isUnread)) {
                     newMessages.forEach(function(m) {
@@ -156,13 +167,28 @@ Page {
             
             VKService.initService(_app);
             VKService.messages.send(dialog.user.id, text, function(messageId) {
-                    var newMessages = singleMessageComponent.messages.slice();
-                    var deliveredMessage = DialogsService.findMessageById(newMessages, tempID);
-                    if (deliveredMessage) {
-                        deliveredMessage.id = messageId;
-                        deliveredMessage.read_state = 0;
-                        singleMessageComponent.messages = newMessages;
-                    }
+                var newMessages = singleMessageComponent.messages.slice();
+                var deliveredMessage = DialogsService.findMessageById(newMessages, tempID);
+                if (deliveredMessage) {
+                    deliveredMessage.id = messageId;
+                    deliveredMessage.read_state = 0;
+                    singleMessageComponent.messages = newMessages;
+                }
+            });
+        }
+    }
+    
+    function markMessagesAsReaded() {
+        "use strict";        
+        var unreadMessages = DialogsService.findUnreadMessages(DialogsService.findMessagesByUserId(dialog.messages, dialog.user.id));
+        if (unreadMessages.length > 0) {
+            var messageIds = unreadMessages.map(function(message) {
+                return message.id;     
+            }).join(",");
+            
+            VKService.initService(_app);
+            VKService.messages.markAsRead(dialog.user.id, messageIds, function(status) {
+                console.debug("status: " + status);
             });
         }
     }
@@ -209,6 +235,14 @@ Page {
                 MessageContainerDivider {}
             }
         }
+        
+        gestureHandlers: [
+            TapHandler {
+                onTapped: {
+                    markMessagesAsReaded();
+                }
+            }
+        ]
     }
     
     onDialogChanged: {
@@ -218,6 +252,7 @@ Page {
     onCreationCompleted: {
         _app.dialogsService.dialogUpdated.connect(dialogPage.messageReceived);
         _app.dialogsService.outgoingMessagesReaded.connect(dialogPage.outgoingMessagesReaded);
+        _app.dialogsService.incomingMessagesReaded.connect(dialogPage.incomingMessagesReaded);
     }
             
     actions: [
@@ -230,6 +265,10 @@ Page {
                 onSubmitted: {
                     send();
                 }
+            }
+            
+            onTextChanging: {
+                markMessagesAsReaded();
             }
         },
         ActionItem {

@@ -67,5 +67,11 @@ var messages = {
 		post("messages.send", {user_id: userId, message: message}, function(response) {
 			callback(JSON.parse(response).response);
 		});
+	},
+	
+	markAsRead: function markAsRead(userId, messageIds, callback) {
+		post("messages.markAsRead", {peer_id: userId, message_ids: messageIds}, function(response) {
+			callback(JSON.parse(response).response);
+		});
 	}
 };

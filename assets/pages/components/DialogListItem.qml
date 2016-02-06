@@ -50,7 +50,7 @@ CustomListItem {
                         }
                         textStyle.color: Color.White
                     }
-                    visible: dialog.hasOwnProperty("unread")
+                    visible: dialog.hasOwnProperty("unread") && dialog.unread !== 0
                     background: Color.create("#0092CC")
 
                     leftPadding: ui.du(1)

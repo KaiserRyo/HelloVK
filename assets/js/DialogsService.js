@@ -72,10 +72,7 @@ function updateDialogByUser(dialog, fromCurrUser, messageId, date, title, body, 
 		if (!findMessageById(dialog.messages, messageId)) {
 			dialog.messages.push(newMessage);
 		}
-	} else {
-		dialog.messages = [newMessage];
-	}
-	
+	} 
 	return dialog;
 }
 

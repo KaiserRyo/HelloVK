@@ -17,6 +17,7 @@ var Action = {
 	FRIEND_BECAME_ONLINE: 8,
 	FRIEND_BECAME_OFFLINE: 9,
 	MESSAGE_ADDED: 4,
+	INCOMING_MESSAGES_READED: 6,
 	OUTGOING_MESSAGES_READED: 7
 };
 
@@ -94,17 +95,32 @@ function getLongPollHistory(ts) {
 						app.dialogsService.setDialogs(newDialogs);
 						app.dialogsService.outgoingMessagesReaded(findByUserId(app.dialogsService.dialogs, readedByUserId));
 					}
+				} else if (responseCode === Action.INCOMING_MESSAGES_READED) {
+					var newDialogs = app.dialogsService.dialogs.slice();
+					var readedByUserId = update[1];
+					
+					var dialog = findByUserId(newDialogs, readedByUserId);
+					if (dialog && dialog.messages) {
+						var newMessages = dialog.messages.slice();
+						var userMessages = findMessagesByUserId(newMessages, readedByUserId);
+						var unreadMessages = findUnreadMessages(userMessages);
+						unreadMessages.forEach(function(m) {
+							m.read_state = 1;
+						});
+						dialog.messages = newMessages;
+						dialog.unread = 0;
+						
+						app.dialogsService.dialogUpdated(dialog, true);
+						app.dialogsService.setDialogs(newDialogs);
+						app.dialogsService.incomingMessagesReaded(findByUserId(app.dialogsService.dialogs, readedByUserId));
+						app.dialogsService.setUnreadDialogs(--app.dialogsService.unreadDialogs);
+					}
 				}
 			});
 			getLongPollHistory(responseObj.ts);
 		}
 	});
 }
-
-//{"ts":1794277831,"updates":[[3,82185,1,214914887],[3,82186,1,214914887],[3,82187,1,214914887],[3,82188,1,214914887],[3,82189,1,214914887],[7,214914887,82189]]}
-
-//    {"ts":1869517277,"updates":[[4,82033,33,214914887,1453116338," ... ","Дарова, лысый",{}],[80,3,0],[7,214914887,82032]]}
-
 
 function friendOnlineChanged(userId, status) {
 	var newFriendsList = app.friendsService.friends.slice();
