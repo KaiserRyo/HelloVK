@@ -98,12 +98,32 @@ NavigationPane {
             FriendInfo {
                 onDialogStarted: {
                     var dialogPageObj = dialogPage.createObject();
+                    
+                    var newDialogs = _app.dialogsService.dialogs.slice();
                     var dialog = DialogsService.findByUserId(_app.dialogsService.dialogs, friend.id);
                     if (!dialog) {
                         dialog = DialogsService.createEmptyDialog(friend);
+                        newDialogs.push(dialog);
+                        _app.dialogsService.dialogAdded(dialog, true);
+                        _app.dialogsService.setDialogs(newDialogs);
                     }
-                    dialogPageObj.dialog = dialog;
-                    navigationPane.push(dialogPageObj);
+                    
+                    if (!dialog.messages || dialog.messages.length === 0) {
+                        VKService.messages.getHistory(dialog.user.id, function(response) {
+                            var newDialogs = _app.dialogsService.dialogs.slice();
+                            var newDialog = DialogsService.findByUserId(newDialogs, dialog.user.id);
+                            newDialog.messages = response.items;
+                                
+                            _app.dialogsService.dialogUpdated(newDialog, true);
+                            _app.dialogsService.setDialogs(newDialogs);
+                                
+                            dialogPageObj.dialog = newDialog;
+                            navigationPane.push(dialogPageObj);
+                        });
+                    } else {
+                        dialogPageObj.dialog = dialog;
+                        navigationPane.push(dialogPageObj);
+                    }
                 }
             }
         },
@@ -112,7 +132,9 @@ NavigationPane {
             Dialogs {
                 onLoadDialog: {
                     var d = dialog;
-                    if (!d.messages) {
+                    var dialogPageObj = dialogPage.createObject();
+                    
+                    if (!d.messages || d.messages.length === 0) {
                         VKService.messages.getHistory(d.user.id, function(response) {
                             var newDialogs = _app.dialogsService.dialogs.slice();
                             var newDialog = DialogsService.findByUserId(newDialogs, d.user.id);
@@ -121,14 +143,11 @@ NavigationPane {
                             _app.dialogsService.dialogUpdated(newDialog, true);
                             _app.dialogsService.setDialogs(newDialogs);
                             
-                            var dialogPageObj = dialogPage.createObject();
                             dialogPageObj.dialog = newDialog;
-                            
                             navigationPane.push(dialogPageObj);
                             dialogLoaded();    
                         });
                     } else {
-                        var dialogPageObj = dialogPage.createObject();
                         dialogPageObj.dialog = d;
                         navigationPane.push(dialogPageObj);
                         dialogLoaded();

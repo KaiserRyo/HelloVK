@@ -54,14 +54,6 @@ Page {
     }
     
     function getAvatar() {
-//        var crop = friend.crop_photo;
-//        if (crop) {
-//            if (crop.photo.photo_1280) {
-//                return crop.photo.photo_1280
-//            } else if (crop.photo.photo_807) {
-//                return crop.photo.photo_807;
-//            }
-//        } 
         return friend.photo_max_orig;
     }
     
@@ -157,7 +149,9 @@ Page {
                     ]
                 }
                 
-                Divider {}
+                Divider {
+                    accessibility.name: "Divider"
+                }
                 
                 ScrollView {
                     horizontalAlignment: HorizontalAlignment.Fill
