@@ -14,7 +14,6 @@ Page {
     }
 
     function friendOnlineChanged(friend) {
-        console.debug(friend.first_name + " " + friend.last_name + " from C++" + " online: " + friend.online);
         var indexPath = friendsArray.find(friend);
         if (friendsPage.sortedByOnlineMode) {
             if (friend.online === 1) {
@@ -71,7 +70,7 @@ Page {
         ActionItem {
             title: qsTr("All friends")
             ActionBar.placement: ActionBarPlacement.OnBar
-            imageSource: "asset:///img/friends_all.png"
+            imageSource: "asset:///img/ic_contact.png"
 
             onTriggered: {
                 friendsPage.sortedByOnlineMode = false;
@@ -92,7 +91,7 @@ Page {
         ActionItem {
             title: qsTr("Friends online")
             ActionBar.placement: ActionBarPlacement.OnBar
-            imageSource: "asset:///img/friends_online.png"
+            imageSource: "asset:///img/ic_contact_online.png"
 
             onTriggered: {
                 friendsPage.sortedByOnlineMode = true;

@@ -119,6 +119,7 @@ Page {
         ActionItem {
             title: qsTr("All dialogs")
             ActionBar.placement: ActionBarPlacement.OnBar
+            imageSource: "asset:///img/ic_mark_opened.png"
 
             onTriggered: {
                 dialogsPage.sortedByUnreadMode = false;
@@ -139,6 +140,7 @@ Page {
         ActionItem {
             title: qsTr("Unread dialogs")
             ActionBar.placement: ActionBarPlacement.OnBar
+            imageSource: "asset:///img/ic_mark_prior_unopened.png"
 
             onTriggered: {
                 dialogsPage.sortedByUnreadMode = true;

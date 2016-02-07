@@ -40,6 +40,7 @@ signals:
     void dialogAdded(const QVariant&);
     void dialogDeleted(const QVariant&);
     void outgoingMessagesReaded(const QVariant&);
+    void incomingMessagesReaded(const QVariant&);
 
 private:
     int m_count;

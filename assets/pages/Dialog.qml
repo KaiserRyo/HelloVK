@@ -274,18 +274,24 @@ Page {
         ActionItem {
             title: qsTr("Send")
             ActionBar.placement: ActionBarPlacement.OnBar
+            imageSource: "asset:///img/send.png"
+            
             onTriggered: {
                 send();
             }
         },
         ActionItem {
             title: qsTr("Dialogs")
+            imageSource: "asset:///img/ic_hub.png"
+            
             onTriggered: {
                 proceedTo("dialogs");
             }
         },
         ActionItem {
             title: qsTr("Friends")
+            imageSource: "asset:///img/ic_contact.png"
+            
             onTriggered: {
                 proceedTo("friends");
             }

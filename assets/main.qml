@@ -56,7 +56,7 @@ NavigationPane {
             ActionItem {
                 title: qsTr("Friends")
                 ActionBar.placement: ActionBarPlacement.OnBar
-                imageSource: "asset:///img/ca_contacts.png"
+                imageSource: "asset:///img/ic_contact.png"
             
                 onTriggered: {
                     navigationPane.push(friendsPage.createObject());
@@ -65,6 +65,7 @@ NavigationPane {
             ActionItem {
                 title: qsTr("Dialogs")
                 ActionBar.placement: ActionBarPlacement.OnBar
+                imageSource: "asset:///img/ic_hub.png"
                 
                 onTriggered: {
                     navigationPane.push(dialogsPage.createObject());
